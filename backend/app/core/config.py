@@ -97,6 +97,33 @@ class Settings(BaseSettings):
         ge=50,
         description="Upper bound for the SPHEREx cutout cache; oldest cutouts are pruned beyond it",
     )
+    SPHEREX_DOWNLOAD_CONCURRENCY: int = Field(
+        default=10,
+        ge=1,
+        le=32,
+        description="Parallel IRSA cutout downloads (6 is plenty on a Raspberry Pi)",
+    )
+    MAX_CONCURRENT_JOBS: int = Field(
+        default=3,
+        ge=1,
+        le=16,
+        description="Background jobs (blink, detection, photometry) that may run at the same time",
+    )
+    OFFLINE_CACHE_DIR: str = Field(
+        default="",
+        description="Directory for on-disk snapshots of JPL / Planet X answers used when the internet is "
+                    "unreachable (default: <SPHEREX_CACHE_DIR>/../offline)",
+    )
+    # --- Raspberry Pi kiosk / Wi-Fi access point (written by deploy/pi/install.sh) ---
+    PUBLIC_URL: str = Field(
+        default="",
+        description="Address visitors open on their phones (e.g. http://10.42.0.1); shown as a QR code in kiosk mode",
+    )
+    WIFI_AP_SSID: str = Field(default="", description="Name of the Pi's own Wi-Fi access point (kiosk QR code)")
+    WIFI_AP_PASSWORD: str = Field(
+        default="",
+        description="Access point password; only ever sent to clients on the Pi itself (the kiosk screen)",
+    )
     ORBITSCOPE_DB_PATH: str = Field(
         default=str(Path(__file__).resolve().parents[2] / "data" / "orbitscope.db"),
         description="SQLite file for detection runs and reviewed candidates",

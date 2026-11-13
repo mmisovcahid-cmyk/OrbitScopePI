@@ -20,6 +20,7 @@ import httpx
 from astropy.coordinates import SkyCoord
 from cachetools import TTLCache
 
+from app.core import offline
 from app.core.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -186,4 +187,11 @@ async def resolve(text: str) -> Optional[dict[str, Any]]:
     if result:
         result["name"] = query
         _cache[key] = result
-    return result
+        offline.save("names", key, result)
+        return result
+    # Sesame and NED both failed or did not know the name: a position resolved earlier still holds
+    # (catalog positions do not change), so offline demos keep working for names used before.
+    snap = offline.load("names", key)
+    if snap is not None:
+        return offline.mark(snap[0], snap[1])
+    return None

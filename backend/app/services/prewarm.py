@@ -7,7 +7,9 @@ challenge targets everything a visitor is likely to open is downloaded in advanc
 - the spectrum / light curve (Photometry panel default);
 - the Gaia DR3 / CatWISE2020 overlays of the Blink view (kept on disk);
 - the three Detection examples (626 Notburga, epsilon Indi B, WISE 0855), saved as runs once,
-  so Sky Explorer and the Detection page show real results immediately.
+  so Sky Explorer and the Detection page show real results immediately;
+- offline snapshots (``app/core/offline.py``): the Planet X orbit sample and the JPL SBDB entries
+  of the Catalog page's popular objects, so a Raspberry Pi demo without internet still shows them.
 
 Used by ``scripts/prewarm.py`` and, when ``PREWARM_ON_STARTUP`` is true, by the app at startup
 (in the background; requests are served normally meanwhile).
@@ -33,7 +35,37 @@ DEMO_RUNS: list[dict[str, Any]] = [
     {"target": "WISE 0855-0714", "search": "proper_motion", "detectors": [6], "fov_deg": 0.1},
 ]
 
+# Catalog page quick links (frontend/src/pages/CatalogPage.tsx POPULAR) + the Detection asteroid.
+OFFLINE_SBDB = ["1 Ceres", "4 Vesta", "433 Eros", "99942 Apophis", "101955 Bennu", "90377 Sedna", "1P/Halley",
+                "134340 Pluto", "626"]
+
 Log = Callable[[str], None]
+
+
+async def prewarm_offline(log: Log = logger.info) -> bool:
+    """Planet X sample + popular SBDB objects, saved as offline snapshots. Needs internet."""
+    from app.services import jpl_catalog as jc
+    from app.services.etno import etno_analysis
+
+    ok = True
+    try:
+        res = await etno_analysis()
+        if "offline_snapshot" in res:
+            raise jc.JPLUnavailable("JPL unreachable (an older snapshot exists)")
+        log(f"Planet X: {res['selection']['n_total']} orbits saved for offline use")
+    except Exception as exc:  # noqa: BLE001
+        ok = False
+        log(f"Planet X snapshot FAILED - {exc}")
+    for q in OFFLINE_SBDB:
+        try:
+            res = await jc.sbdb_lookup(q)
+            if "offline_snapshot" in res:
+                raise jc.JPLUnavailable("JPL unreachable (an older snapshot exists)")
+        except Exception as exc:  # noqa: BLE001
+            ok = False
+            log(f"SBDB {q}: snapshot FAILED - {exc}")
+    log(f"SBDB: {len(OFFLINE_SBDB)} catalog entries checked for offline use")
+    return ok
 
 
 def _same_run(saved: dict[str, Any], want: dict[str, Any], tgt: dict[str, Any]) -> bool:
@@ -49,6 +81,7 @@ async def prewarm(
     all_detectors: bool = True,
     photometry: bool = True,
     demo_runs: bool = True,
+    offline_extras: bool = True,
     log: Log = logger.info,
 ) -> bool:
     """Returns True when everything succeeded."""
@@ -115,6 +148,9 @@ async def prewarm(
             except Exception as exc:  # noqa: BLE001
                 ok = False
                 log(f"demo run {want['target']} FAILED - {exc}")
+
+    if offline_extras:
+        ok = await prewarm_offline(log) and ok
 
     stats = spherex_archive.cache_stats()
     log(f"prewarm done in {time.perf_counter() - t_all:.0f} s; cache {stats.get('cutouts')} cutouts, {stats.get('size_mb')} MB")

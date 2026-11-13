@@ -64,7 +64,10 @@ async def get_object(designation: str, locale: str = "en") -> dict[str, Any]:
         raise _handle(exc, locale, q)
     if "matches" in res:
         return {"success": True, "message": _msg(locale, "matches"), "data": {"matches": res["matches"]}, "is_simulated": False}
-    return {"success": True, "message": _msg(locale, "ok"), "data": res["match"], "is_simulated": False}
+    data = res["match"]
+    if "offline_snapshot" in res:  # JPL unreachable: last real answer, labelled with its date
+        data = {**data, "offline_snapshot": res["offline_snapshot"]}
+    return {"success": True, "message": _msg(locale, "ok"), "data": data, "is_simulated": False}
 
 
 @router.get("/search", summary="Search JPL SBDB (returns a list)")

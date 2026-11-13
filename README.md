@@ -49,7 +49,25 @@ All numbers were re-measured on 2026-11-13 with the code in this repository; `sc
 
 Method details: [docs/METHODOLOGY.md](docs/METHODOLOGY.md). Honest limitations: [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
-## 🔧 Running locally
+## 🍓 Raspberry Pi 5 (main target)
+
+OrbitScope is built to run on a single **Raspberry Pi 5 (8 GB)**. One Pi runs:
+
+- the backend and the web site;
+- a full-screen **kiosk** on its own screen, which scales to any size and supports touch;
+- its own **Wi-Fi network**: visitors scan a QR code on the screen to join and open the site on their phones.
+
+With the demo data downloaded once, it also works **without internet**. It then shows only real data saved earlier, labelled with its date.
+
+```bash
+git clone https://github.com/mmisovcahid-cmyk/OrbitScopePI.git && cd OrbitScopePI
+sudo deploy/pi/install.sh --prewarm      # or: --docker, --no-ap, --no-kiosk
+sudo reboot
+```
+
+Everything about the Pi (hardware, access point, offline mode, kiosk, settings, troubleshooting) is in [docs/RASPBERRY_PI.md](docs/RASPBERRY_PI.md).
+
+## 🔧 Running locally (PC development)
 
 Requirements: **Python 3.10+**, **Node.js 18+**.
 
@@ -111,13 +129,15 @@ backend/
   app/pipeline/     moving_objects (asteroid + proper-motion search)
   app/core/         config, progress, rate limit, cache, logging
   scripts/          prewarm
+  app/core/offline.py, connectivity.py   offline snapshots + internet probe (Raspberry Pi demo)
+deploy/pi/          install.sh, Wi-Fi access point (orbitscope-net), kiosk, systemd, nginx, orbitscope-check
   tests/            offline tests incl. real SPHEREx FITS fixtures
 frontend/src/
   pages/            Blink, Embed, Detection, Dashboard, Comparison, Analysis, Catalog, PlanetX, About
   components/       blink viewer, photometry panel, all-sky map, job progress, layout
   lib/              SPHEREx decoding/stretch/WCS, background jobs
   i18n/             en.json, az.json
-docs/               METHODOLOGY, ARCHITECTURE, DATA_SOURCES, LIMITATIONS, REFERENCES
+docs/               RASPBERRY_PI, METHODOLOGY, ARCHITECTURE, DATA_SOURCES, LIMITATIONS, REFERENCES
 ```
 
 Architecture and request flow: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Every external service: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).

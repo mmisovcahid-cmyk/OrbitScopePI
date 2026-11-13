@@ -22,6 +22,7 @@ from typing import Any
 import httpx
 from cachetools import TTLCache
 
+from app.core.connectivity import is_online
 from app.core.config import settings
 from app.core.logging_config import get_logger
 
@@ -81,7 +82,8 @@ async def fetch_catalog(catalog: str, ra: float, dec: float, radius_deg: float, 
         return _cache[key]
     disk = _disk_path(key)
     try:
-        if disk.exists() and time.time() - disk.stat().st_mtime < DISK_TTL_S:
+        # Gaia DR3 / CatWISE2020 never change: when offline, any saved copy is still the real answer.
+        if disk.exists() and (time.time() - disk.stat().st_mtime < DISK_TTL_S or not await is_online()):
             result = json.loads(disk.read_text(encoding="utf-8"))
             _cache[key] = result
             return result

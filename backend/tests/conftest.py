@@ -26,3 +26,20 @@ def _catalog_disk_cache_in_tmp(tmp_path, monkeypatch):
 
     monkeypatch.setattr(co, "_disk_path", lambda key: tmp_path / f"cat_{abs(hash(key))}.json")
     yield
+
+
+@pytest.fixture(autouse=True)
+def _offline_snapshots_in_tmp(tmp_path, monkeypatch):
+    """Snapshots written by tests go to a temp dir; connectivity is assumed (no TCP probes)."""
+    import app.core.connectivity as conn
+    import app.core.offline as off
+
+    monkeypatch.setattr(off, "snapshot_dir", lambda: tmp_path / "offline")
+
+    async def online(force: bool = False) -> bool:
+        return True
+
+    monkeypatch.setattr(conn, "is_online", online)
+    for mod in ("app.services.spherex_archive", "app.services.catalog_overlay"):
+        monkeypatch.setattr(f"{mod}.is_online", online)
+    yield

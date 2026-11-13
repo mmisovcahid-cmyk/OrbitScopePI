@@ -818,5 +818,14 @@
     },
     "baseline": "Time between A and B: {{days}} days",
     "diffHelp": "Red = brighter in B, blue = brighter in A. A moving star leaves a blue/red pair; a variable star a single colour."
+  },
+  "pi": {
+    "offlineTitle": "Offline:",
+    "offlineBody": "no internet connection. Only data saved earlier on this device is shown (real archive data, with its date); new fields cannot be loaded.",
+    "snapshot": "Offline copy of the real JPL answer, saved {{when}}.",
+    "aladinOffline": "The sky context (Aladin Lite) needs an internet connection and is not available offline.",
+    "qrWifi": "1. Join Wi-Fi",
+    "qrSite": "2. Open OrbitScope",
+    "hideQr": "Hide QR codes"
   }
 }

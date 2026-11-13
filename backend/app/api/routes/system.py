@@ -90,7 +90,12 @@ async def system_status(
     from app.services.jobs import job_manager
     from app.services.spherex_archive import spherex_archive
 
+    from app.core import offline
+    from app.core.connectivity import is_online
+
     uptime = _get_uptime_seconds(request)
+    online = await is_online()
+    live = "live" if online else "offline (cached data only)"
     total_cache_size = (
         getattr(catalog_cache, "size", 0)
         + getattr(observation_cache, "size", 0)
@@ -108,13 +113,14 @@ async def system_status(
         uptime_seconds=round(uptime, 2),
         components={
             "data_sources": {
-                "IRSA_SPHEREX": "live",
-                "GAIA_DR3": "live",
-                "CATWISE2020": "live",
-                "JPL_SBDB": "live",
-                "JPL_HORIZONS": "live",
-                "JPL_SB_IDENT": "live",
+                "IRSA_SPHEREX": live,
+                "GAIA_DR3": live,
+                "CATWISE2020": live,
+                "JPL_SBDB": live,
+                "JPL_HORIZONS": live,
+                "JPL_SB_IDENT": live,
             },
+            "network": {"online": online, **offline.stats()},
             "cache_size": total_cache_size,
             "spherex_cutout_cache": cutouts,
             "candidates": get_store().counts(),
@@ -126,6 +132,46 @@ async def system_status(
     return ApiResponse(
         success=True,
         data=status_data,
+        message=_get_msg(locale, "status_success"),
+        locale=locale,
+        is_simulated=False,
+    )
+
+
+def _is_local_client(request: Request) -> bool:
+    """True for the kiosk browser on the Pi itself (directly, or through the bundled nginx)."""
+    loopback = ("127.0.0.1", "::1", "localhost")
+    host = request.client.host if request.client else ""
+    if settings.TRUST_PROXY_HEADERS:
+        host = (request.headers.get("x-real-ip") or host).strip()
+    # Fail closed: a proxy that names any non-loopback client means a visitor, even when the
+    # proxy headers are not otherwise trusted (nginx alone would make every visitor 127.0.0.1).
+    for h in ("x-real-ip", "x-forwarded-for"):
+        named = [v.strip() for v in request.headers.get(h, "").split(",") if v.strip()]
+        if any(v not in loopback for v in named):
+            return False
+    return host in loopback
+
+
+@router.get(
+    "/kiosk",
+    response_model=ApiResponse,
+    summary="Kiosk screen info (Wi-Fi access point + public address)",
+    description="What the kiosk screen shows as QR codes. The Wi-Fi password is only returned to the Pi itself.",
+)
+async def kiosk_info(
+    request: Request,
+    locale: str = Query("en", description="Preferred response locale (en or az)"),
+) -> ApiResponse:
+    local = _is_local_client(request)
+    wifi = None
+    if settings.WIFI_AP_SSID:
+        wifi = {"ssid": settings.WIFI_AP_SSID, "security": "WPA" if settings.WIFI_AP_PASSWORD else "nopass"}
+        if local and settings.WIFI_AP_PASSWORD:
+            wifi["password"] = settings.WIFI_AP_PASSWORD
+    return ApiResponse(
+        success=True,
+        data={"public_url": settings.PUBLIC_URL or None, "wifi": wifi, "local_client": local},
         message=_get_msg(locale, "status_success"),
         locale=locale,
         is_simulated=False,

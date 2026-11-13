@@ -76,4 +76,5 @@ export const systemService = {
   health: () => api.get('/api/v1/system/health'),
   status: () => api.get('/api/v1/system/status'),
   dataSources: () => api.get('/api/v1/system/datasources'),
+  kiosk: () => api.get('/api/v1/system/kiosk'),
 };

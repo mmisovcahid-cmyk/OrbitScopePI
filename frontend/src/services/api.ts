@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-// Unset -> local dev backend. Set to '' (e.g. the Docker/nginx build) -> same origin, /api is proxied.
-const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:8000';
+// VITE_API_BASE wins when set ('' = same origin). Unset: the Vite dev server talks to the local
+// backend on :8000, and a production build uses its own origin (nginx proxies /api), so phones on
+// the Raspberry Pi's Wi-Fi reach the Pi instead of their own localhost.
+const API_BASE = import.meta.env.VITE_API_BASE ?? (import.meta.env.DEV ? 'http://localhost:8000' : '');
 
 const api = axios.create({
   baseURL: API_BASE,

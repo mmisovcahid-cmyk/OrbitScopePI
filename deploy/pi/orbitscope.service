@@ -1,0 +1,37 @@
+[Unit]
+Description=OrbitScope backend (FastAPI, SPHEREx data pipeline)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=orbitscope
+Group=orbitscope
+WorkingDirectory=/opt/orbitscope/backend
+EnvironmentFile=/etc/orbitscope/orbitscope.env
+# astropy keeps its config/cache under $HOME; the code directory stays read-only.
+Environment=HOME=/var/lib/orbitscope
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+# One process only: jobs and rate-limit counters live in memory.
+ExecStart=/opt/orbitscope/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1 --no-access-log
+Restart=on-failure
+RestartSec=5
+# A long blink/detection may still be running when systemd stops the service.
+TimeoutStopSec=20
+
+# Hardening: the backend only writes its data directory.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/orbitscope
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+# Keep the desktop and kiosk responsive while the pipeline works.
+Nice=5
+MemoryMax=3G
+
+[Install]
+WantedBy=multi-user.target

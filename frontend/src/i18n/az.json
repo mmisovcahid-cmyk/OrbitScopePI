@@ -818,5 +818,14 @@
     },
     "baseline": "A ilə B arasında vaxt: {{days}} gün",
     "diffHelp": "Qırmızı = B-də daha parlaq, mavi = A-da daha parlaq. Hərəkət edən ulduz mavi/qırmızı cüt, dəyişkən ulduz isə tək rəng buraxır."
+  },
+  "pi": {
+    "offlineTitle": "Oflayn:",
+    "offlineBody": "internet bağlantısı yoxdur. Yalnız bu cihazda əvvəlcədən saxlanmış məlumatlar göstərilir (real arxiv məlumatları, tarixi ilə); yeni sahələr yüklənə bilməz.",
+    "snapshot": "Real JPL cavabının oflayn nüsxəsi, saxlanma tarixi: {{when}}.",
+    "aladinOffline": "Səma konteksti (Aladin Lite) internet bağlantısı tələb edir və oflayn rejimdə əlçatan deyil.",
+    "qrWifi": "1. Wi-Fi-a qoşulun",
+    "qrSite": "2. OrbitScope-u açın",
+    "hideQr": "QR kodları gizlət"
   }
 }

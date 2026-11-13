@@ -22,6 +22,7 @@ import httpx
 from astropy.time import Time
 from cachetools import TTLCache
 
+from app.core import offline
 from app.core.config import settings
 from app.core.logging_config import get_logger
 
@@ -170,7 +171,13 @@ async def sbdb_lookup(query: str) -> dict[str, Any]:
     key = f"sbdb:{q.lower()}"
     if key in _cache:
         return _cache[key]
-    resp = await _get(SBDB_URL, {"sstr": q, "phys-par": "1", "ca-data": "1", "discovery": "1"})
+    try:
+        resp = await _get(SBDB_URL, {"sstr": q, "phys-par": "1", "ca-data": "1", "discovery": "1"})
+    except JPLUnavailable:
+        snap = offline.load("sbdb", key)
+        if snap is None:
+            raise
+        return offline.mark(snap[0], snap[1])
     if resp.status_code == 300 or (resp.status_code == 200 and resp.json().get("code") == "300"):
         lst = resp.json().get("list", [])
         out: dict[str, Any] = {"matches": [{"designation": m.get("pdes"), "name": m.get("name")} for m in lst][:50]}
@@ -184,6 +191,7 @@ async def sbdb_lookup(query: str) -> dict[str, Any]:
     else:
         raise JPLUnavailable(f"SBDB HTTP {resp.status_code}")
     _cache[key] = out
+    offline.save("sbdb", key, out)
     return out
 
 
