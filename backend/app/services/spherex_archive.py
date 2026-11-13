@@ -35,6 +35,8 @@ from cachetools import TTLCache
 from scipy import ndimage
 from scipy.ndimage import map_coordinates
 
+from app.core import offline
+from app.core.connectivity import is_online
 from app.core.config import settings
 from app.core.logging_config import get_logger
 from app.core.progress import gather_with_progress, report
@@ -72,7 +74,6 @@ REPORTED_FLAGS = ("OVERFLOW", "SUR_ERROR", "NONLINEAR", "PERSIST", "OUTLIER", "T
 NATIVE_PIXSCALE_ARCSEC = 6.15
 EPOCH_GAP_DAYS = 30.0
 MAX_DOWNLOADS = 48
-DOWNLOAD_CONCURRENCY = 10   # parallel IRSA cutout downloads (IRSA copes well; 503s are retried)
 WITHDRAWN_MIN_MISSES = 10   # a collection counts as withdrawn after >= 10 missing files ...
 WITHDRAWN_FRACTION = 0.8    # ... that are >= 80 % of all files looked up in it
 COVERAGE_TTL_S = 6 * 3600   # re-ask IRSA which frames cover a position at least every 6 h (new releases)
@@ -169,10 +170,11 @@ class SpherexArchive:
         self._urls_path = self.cache_dir / "datalink_urls.json"
         self._urls: dict[str, str] = self._load_json(self._urls_path)
         self._coverage_cache: TTLCache = TTLCache(maxsize=256, ttl=6 * 3600)
-        self._sem = asyncio.Semaphore(DOWNLOAD_CONCURRENCY)
+        self._sem = asyncio.Semaphore(settings.SPHEREX_DOWNLOAD_CONCURRENCY)
         self._locks: dict[str, asyncio.Lock] = {}
         self._new_downloads = 0
         self._withdrawn_cache: Optional[tuple[int, set[str]]] = None
+        self.coverage_cached_at: dict[str, float] = {}  # coverage key -> mtime of a stale list in use
 
     # ------------------------------------------------------------------ utils
     @staticmethod
@@ -247,6 +249,18 @@ class SpherexArchive:
             asyncio.get_running_loop().run_in_executor(None, self.prune_cache)
 
     # --------------------------------------------------------------- coverage
+    @staticmethod
+    def _read_stale_coverage(disk: Path) -> Optional[tuple[list[dict[str, Any]], float]]:
+        try:
+            return json.loads(disk.read_text(encoding="utf-8")), disk.stat().st_mtime
+        except (OSError, ValueError):
+            return None
+
+    def offline_note(self, ra: float, dec: float) -> Optional[str]:
+        """ISO time of the cached coverage list in use for (ra, dec) when IRSA was unreachable."""
+        saved = self.coverage_cached_at.get(f"{ra:.3f}:{dec:.3f}")
+        return offline.iso(saved) if saved else None
+
     async def query_frames(self, ra: float, dec: float) -> list[FrameRecord]:
         """All SPHEREx L2 frames whose footprint contains (ra, dec), sorted by time."""
         key = f"{ra:.3f}:{dec:.3f}"
@@ -263,6 +277,11 @@ class SpherexArchive:
             withdrawn = self._withdrawn_collections()
             if withdrawn and any(r.get("obs_collection") in withdrawn for r in rows):
                 rows = None
+        if rows is None and disk.exists() and not await is_online():
+            stale = self._read_stale_coverage(disk)
+            if stale is not None:  # known offline: skip the TAP timeout, use the last real list
+                rows, saved = stale
+                self.coverage_cached_at[key] = saved
         if rows is None:
             adql = (
                 "SELECT obs_collection, obs_id, t_min, t_max, em_min, em_max, energy_bandpassname "
@@ -274,15 +293,26 @@ class SpherexArchive:
                     resp = await client.post(
                         self.tap_url, data={"LANG": "ADQL", "FORMAT": "csv", "QUERY": adql}
                     )
-            except httpx.HTTPError as exc:
-                raise SpherexError("upstream", f"IRSA TAP request failed: {exc}") from exc
-            if resp.status_code != 200 or "QUERY_STATUS" in resp.text[:2000]:
-                raise SpherexError("upstream", f"IRSA TAP error (HTTP {resp.status_code})")
-            rows = self._parse_csv(resp.text)
-            try:
-                disk.write_text(json.dumps(rows), encoding="utf-8")
-            except Exception:
-                pass
+                if resp.status_code != 200 or "QUERY_STATUS" in resp.text[:2000]:
+                    raise SpherexError("upstream", f"IRSA TAP error (HTTP {resp.status_code})")
+                rows = self._parse_csv(resp.text)
+                try:
+                    disk.write_text(json.dumps(rows), encoding="utf-8")
+                except Exception:
+                    pass
+                self.coverage_cached_at.pop(key, None)
+            except (httpx.HTTPError, SpherexError) as exc:
+                # Offline (e.g. a Raspberry Pi demo without internet): the last real frame list for
+                # this position is still correct, only possibly missing frames released since. Use it
+                # and say so; without one, the original 502 stands.
+                stale = self._read_stale_coverage(disk)
+                if stale is None:
+                    if isinstance(exc, SpherexError):
+                        raise
+                    raise SpherexError("upstream", f"IRSA TAP request failed: {exc}") from exc
+                rows, saved = stale
+                self.coverage_cached_at[key] = saved
+                logger.warning(f"IRSA TAP unreachable; using the coverage list cached on {offline.iso(saved)}")
 
         frames: list[FrameRecord] = []
         for r in rows:
@@ -308,7 +338,8 @@ class SpherexArchive:
             except (KeyError, ValueError):
                 continue
         frames.sort(key=lambda f: f.mjd)
-        self._coverage_cache[key] = frames
+        if key not in self.coverage_cached_at:  # a stale list is re-checked on the next request
+            self._coverage_cache[key] = frames
         return frames
 
     @staticmethod
@@ -497,6 +528,9 @@ class SpherexArchive:
         if not all_frames:
             raise SpherexError("no_coverage", "No SPHEREx frames cover this position yet.")
         coverage = self.summarize(all_frames)
+        cached_at = self.offline_note(q_ra, q_dec)
+        if cached_at:
+            coverage["offline_cached_at"] = cached_at
 
         if has_pm:
             mid = (all_frames[0].mjd + all_frames[-1].mjd) / 2.0

@@ -220,3 +220,35 @@
 .page-enter {
   animation: fadeIn 0.3s ease-out, slideUp 0.3s ease-out;
 }
+
+/* ------------------------------------------------------------------
+   Kiosk mode (Raspberry Pi screen, /?kiosk=1 - see src/lib/kiosk.ts).
+   Tailwind sizes are in rem, so scaling the root font size scales the whole UI with the screen:
+   about 14 px on an 800x480 panel, 16 px at 1280 px, 18 px on 1080p, capped at 20 px on 4K.
+   ------------------------------------------------------------------ */
+html.kiosk {
+  font-size: clamp(13px, calc(0.36vw + 11px), 20px);
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior: none;
+}
+html.kiosk input,
+html.kiosk textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+/* Touchscreens: fingers need bigger targets than a mouse (about 40 px). */
+html.kiosk.touch button,
+html.kiosk.touch select,
+html.kiosk.touch input:not([type='checkbox']):not([type='radio']):not([type='range']),
+html.kiosk.touch nav a {
+  min-height: 2.5rem;
+}
+html.kiosk.touch input[type='range'] {
+  height: 2rem;
+}
+/* Short panels (800x480, 1024x600): give the content the height. */
+@media (max-height: 640px) {
+  html.kiosk header { height: 3rem; }
+}

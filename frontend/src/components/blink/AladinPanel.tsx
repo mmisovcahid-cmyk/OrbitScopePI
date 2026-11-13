@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown, ChevronRight, ExternalLink, Globe2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, ExternalLink, Globe2, WifiOff } from 'lucide-react';
+import { useNetwork } from '../../lib/network';
 
 /**
  * Sky context from CDS Aladin Lite (loaded on demand, only when the panel is opened).
@@ -62,9 +63,11 @@ export default function AladinPanel({ ra, dec, fov, label }: { ra: number; dec: 
   const [state, setState] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
   const box = useRef<HTMLDivElement>(null);
   const viewer = useRef<AladinInstance | null>(null);
+  // Aladin Lite and its sky surveys come from the internet: without it (offline Pi demo) say so.
+  const offline = useNetwork().online === false;
 
   useEffect(() => {
-    if (!open || !box.current) return;
+    if (!open || offline || !box.current) return;
     let cancelled = false;
     setState('loading');
     loadAladin()
@@ -92,7 +95,7 @@ export default function AladinPanel({ ra, dec, fov, label }: { ra: number; dec: 
     return () => { cancelled = true; viewer.current = null; };
     // re-create only when the field changes; the survey is switched in place below
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, ra, dec, fov, label]);
+  }, [open, offline, ra, dec, fov, label]);
 
   useEffect(() => { viewer.current?.setImageSurvey(survey); }, [survey]);
 
@@ -106,7 +109,12 @@ export default function AladinPanel({ ra, dec, fov, label }: { ra: number; dec: 
         </span>
         {open ? <ChevronDown className="w-4 h-4 text-gray-400" /> : <ChevronRight className="w-4 h-4 text-gray-400" />}
       </button>
-      {open && (
+      {open && offline && (
+        <p className="mt-3 text-[11px] text-amber-300 flex items-center gap-1.5">
+          <WifiOff className="w-3.5 h-3.5" /> {t('pi.aladinOffline')}
+        </p>
+      )}
+      {open && !offline && (
         <div className="mt-3 space-y-2">
           <p className="text-[11px] text-gray-500">{t('blink.aladin.intro')}</p>
           <div className="flex flex-wrap items-center gap-2">

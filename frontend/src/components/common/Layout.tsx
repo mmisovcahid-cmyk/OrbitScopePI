@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -9,9 +10,15 @@ import {
   BarChart2,
   BookOpen,
   Users,
-  Globe
+  Globe,
+  RadioTower
 } from 'lucide-react';
 import { OrbitScopeLogo, SpherexSatelliteIllustration } from './Icons';
+import OfflineBanner from './OfflineBanner';
+import { isKiosk } from '../../lib/kiosk';
+
+// Only the Pi's own screen needs the QR codes (and the QR library).
+const KioskConnectCard = lazy(() => import('./KioskConnectCard'));
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
@@ -28,6 +35,7 @@ export default function Layout() {
     { to: '/comparison', icon: GitCompare, label: t('nav.comparison') },
     { to: '/planetx', icon: Orbit, label: t('nav.planetx') },
     { to: '/catalog', icon: BarChart2, label: t('nav.catalog') },
+    { to: '/ground', icon: RadioTower, label: t('nav.ground') },
     { to: '/about', icon: BookOpen, label: t('nav.about') },
   ];
 
@@ -64,12 +72,13 @@ export default function Layout() {
           </button>
 
           {/* NASA Space Apps pill button */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-medium">
+          <div className={`${isKiosk ? 'hidden' : 'hidden sm:flex'} items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-medium`}>
             <Users className="w-3.5 h-3.5" />
             <span>NASA Space Apps</span>
           </div>
         </div>
       </header>
+      <OfflineBanner />
 
       {/* ============================================================ */}
       {/* BODY (SIDEBAR + MAIN CONTENT) */}
@@ -152,6 +161,7 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+      {isKiosk && <Suspense fallback={null}><KioskConnectCard /></Suspense>}
     </div>
   );
 }

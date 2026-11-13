@@ -72,8 +72,26 @@ export const spherexService = {
   },
 };
 
+export const groundService = {
+  status: () => api.get('/api/v1/ground/status', { params: { locale: locale() } }),
+  sessions: () => api.get('/api/v1/ground/sessions', { params: { locale: locale() } }),
+  session: (id: string) => api.get(`/api/v1/ground/sessions/${encodeURIComponent(id)}`, { params: { locale: locale() } }),
+  upload: (files: File[], label: string) => {
+    const form = new FormData();
+    files.forEach((f) => form.append('files', f));
+    form.append('label', label);
+    form.append('locale', locale());
+    return api.post('/api/v1/ground/sessions', form, { headers: { 'Content-Type': 'multipart/form-data' }, timeout: 600000 });
+  },
+  analyze: (id: string) =>
+    api.post(`/api/v1/ground/sessions/${encodeURIComponent(id)}/analyze`, null, { params: { locale: locale() }, timeout: 600000 }),
+  capture: (frames: number, exposure_s: number) =>
+    api.post('/api/v1/ground/capture', { frames, exposure_s, locale: locale() }, { timeout: 900000 }),
+};
+
 export const systemService = {
   health: () => api.get('/api/v1/system/health'),
   status: () => api.get('/api/v1/system/status'),
   dataSources: () => api.get('/api/v1/system/datasources'),
+  kiosk: () => api.get('/api/v1/system/kiosk'),
 };

@@ -6,7 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 OrbitScope is a SPHEREx time-domain sky monitoring / moving-object detection platform: a Python FastAPI backend (`backend/`) running an astronomical image-processing pipeline, plus a React + TypeScript + Vite + Tailwind frontend (`frontend/`). The UI is bilingual (English / Azerbaijani). See `docs/DATA_SOURCES.md` for every external API (all keyless) and `docs/AUDIT_AND_ROADMAP.md` for status and validation results. `docs/METHODOLOGY.md` explains the algorithms, `docs/LIMITATIONS.md` the known limits, and `docs/ARCHITECTURE.md` the system layout.
 
-Git workflow (from the user): develop in the worktree `.claude/worktrees/full-system` (branch `dev/full-system`), merge into `main` only after the user approves, and never push without explicit approval.
+**Main target: Raspberry Pi 5 (8 GB)**, running as server + kiosk + its own Wi-Fi access point, with an offline demo mode. See `docs/RASPBERRY_PI.md`; the deployment files are in `deploy/pi/` and `docker-compose.pi.yml`. Windows (`start.bat`/`start.ps1`) is only for development on a PC.
+
+Git workflow (from the user):
+- This repository is `OrbitScopePI` (github.com/mmisovcahid-cmyk/OrbitScopePI), separate from the older OrbitScope repo. The `.claude/worktrees/full-system` folder inside it is a stale copy of that old repo and is gitignored.
+- Do Pi work on the `dev/pi` branch.
+- Merge into `main` only after the user approves, and never commit or push without explicit approval.
+- The user writes in Turkish and wants answers in Turkish.
 
 ## Commands
 
@@ -30,11 +36,19 @@ npm run build     # tsc type-check + vite build — the main correctness check f
 ```
 `npm run lint` runs ESLint 9 with a flat config (`eslint.config.js`, typescript-eslint + react-hooks). Errors fail; `any` is only a warning, because the older demo pages still use it. `npm run typecheck` runs `tsc --noEmit`.
 
-Docker: `docker compose up --build` serves the app on :8080. Images: `backend/Dockerfile` (uvicorn, data in the `/data` volume) and `frontend/Dockerfile` (Vite build with an empty `VITE_API_BASE`, served by nginx, which proxies `/api` to `backend:8000`). `services/api.ts` uses `??`, so an empty `VITE_API_BASE` means same origin.
+Raspberry Pi (on the Pi, from the repo root):
+```bash
+sudo deploy/pi/install.sh [--docker] [--prewarm] [--no-ap] [--no-kiosk]
+orbitscope-check                     # diagnostics (deploy/pi/pi_check.sh)
+sudo orbitscope-net ap|client|status # Wi-Fi access point (deploy/pi/orbitscope-net.sh)
+```
+None of the `deploy/pi` scripts can run on Windows. Check them with `bash -n deploy/pi/*.sh` and keep LF line endings.
+
+Docker: `docker compose up --build` serves the app on :8080. Images: `backend/Dockerfile` (uvicorn, data in the `/data` volume) and `frontend/Dockerfile` (Vite build with an empty `VITE_API_BASE`, served by nginx, which proxies `/api` to `backend:8000`). In `services/api.ts`, `VITE_API_BASE` wins when set (`''` = same origin). When it is unset, dev mode uses `http://localhost:8000` and production builds use their own origin (so phones on the Pi's Wi-Fi work).
 
 `start.bat` / `start.ps1` at the root launch backend and frontend in separate windows. `.claude/launch.json` defines `backend` (:8000) and `frontend` (:5173) preview configurations.
 
-The Vite dev server runs on 5173. The frontend calls the backend directly via `VITE_API_BASE` (default `http://localhost:8000`) in `src/services/api.ts`; the Vite `/api` proxy exists but is not what the axios client uses.
+The Vite dev server runs on 5173 and calls the backend on :8000 directly; the Vite `/api` proxy exists but the axios client does not use it.
 
 ## Real SPHEREx data path (the main feature)
 
@@ -60,9 +74,39 @@ Real-data paths must never fall back to invented values: return a 502 with an ex
 - The IRSA cutout service sometimes returns 503; `fetch_cutout` retries with backoff.
 - `/api/v1/spherex/photometry` measures one position in up to 96 exposures, spread over detectors and time (`select_for_photometry`). Each point's wavelength comes from that pixel's LVF wavelength via the `WCS-WAVE` table (`Cutout.wavelength_at`), so the same result gives both a spectrum and a light curve. Saturated (OVERFLOW) or mostly masked apertures are returned with `flagged: true` rather than dropped.
 - `/api/v1/spherex/overlay` (`app/services/catalog_overlay.py`) serves Gaia DR3 (ESA TAP, epoch 2016.0) and CatWISE2020 (IRSA TAP, epoch 2015.4, pm converted to mas/yr). CatWISE rows with D/P/H/O artifact flags are dropped, and motions of blended (nb>1) or low-S/N detections are zeroed. The browser propagates each marker to the date of the frame being shown.
+## Offline mode and kiosk (Raspberry Pi)
+
+- **`app/core/offline.py`:** every real JPL SBDB, Planet X (`etno`) and Sesame/NED answer is saved to disk.
+  - When the service is unreachable, the last copy is returned with `offline_snapshot: {saved_at}`.
+  - Without a copy, the original 502 stands.
+  - Time-dependent answers (Horizons, SB Ident) are deliberately not snapshotted.
+- **`app/core/connectivity.py` (`is_online`):** a TCP probe to IRSA/JPL, cached 30 s.
+  - `spherex_archive.query_frames` reuses a stale coverage list when IRSA is unreachable and flags it as `coverage.offline_cached_at`; it is never kept in the memory cache.
+  - `catalog_overlay` serves old disk copies when offline.
+  - `/system/status` exposes `components.network.online`.
+- **Tests:** `tests/conftest.py` redirects snapshots to a temp dir and makes `is_online` return True. Offline tests are in `tests/test_offline.py`.
+- **Kiosk endpoint:** `/api/v1/system/kiosk` returns the Wi-Fi SSID and `PUBLIC_URL` for the kiosk QR codes. The password goes only to loopback clients (`_is_local_client`, which fails closed on any non-loopback proxy header).
+- **Frontend:**
+  - `lib/network.ts` (`useNetwork`) drives `OfflineBanner`, `SnapshotNote` and the Aladin offline note.
+  - `lib/kiosk.ts` adds the `kiosk`/`touch` classes on `/?kiosk=1`; the CSS is at the end of `styles/globals.css`.
+  - `KioskConnectCard` (lazy-loaded) draws the QR codes.
+  - Fonts are bundled via `@fontsource/*`; no Google Fonts.
+- **Settings:** `MAX_CONCURRENT_JOBS` and `SPHEREX_DOWNLOAD_CONCURRENCY` are env settings (Pi profile: 2 / 6). SQLite runs in WAL mode.
+
+## Ground Node (Raspberry Pi as an observing station)
+
+- **Code:** `app/services/ground_node.py` + `app/api/routes/ground.py` (`/api/v1/ground/...`), frontend `pages/GroundNodePage.tsx` (`/ground`). Tests are in `tests/test_ground_node.py`.
+- **Inputs:** uploaded image sequences (EXIF time/GPS/camera are kept as provenance; never labelled as Pi camera frames) and the Pi camera via `rpicam-still`. INDI is planned.
+- **Analysis:**
+  - `detect_trails`: neighbour median, grey-dilated and subtracted, then elongated components.
+  - `plate_solve`: astrometry.net `solve-field` when installed, else `status: unavailable` with the reason.
+  - Satellite ID (CelesTrak TLE + skyfield) is not built yet.
+- **Storage:** sessions are JSON + frames under `<cache>/../ground/`.
+- **Uploads:** they need `python-multipart`, and nginx has `client_max_body_size 500m`.
+
 ## Background jobs and progress
 
-- `app/services/jobs.py` (`JobManager`) runs long work as in-process asyncio tasks, at most 3 at a time. Identical requests (same kind, locale and params) share one job, and finished jobs are kept for 30 minutes.
+- `app/services/jobs.py` (`JobManager`) runs long work as in-process asyncio tasks, at most `MAX_CONCURRENT_JOBS` at a time (default 3). Identical requests (same kind, locale and params) share one job, and finished jobs are kept for 30 minutes.
 - Routes are in `app/api/routes/jobs.py`. `POST /api/v1/jobs {kind: blink|detect|photometry, params, locale}` validates the params with the same limits as the direct endpoints and calls the same internals (`spherex._build`, `run_detection`, `spherex_archive.photometry`).
 - Progress: library code calls `app.core.progress.report(stage, done, total)`, or `gather_with_progress` for parallel downloads. The job installs a ContextVar callback, so this works through `asyncio.gather` and `to_thread` without any signature changes. Stage names are the keys under `jobs.stage.*` in i18n.
 - Frontend: `lib/jobs.ts` `runJob()` submits a job, polls it, cancels it when the AbortSignal fires, and throws `JobError` with the server's localized message. `components/common/JobProgressBar.tsx` shows the progress. Blink, Detection, Photometry and Embed all use jobs; the direct GET endpoints stay for scripts and GIF export.

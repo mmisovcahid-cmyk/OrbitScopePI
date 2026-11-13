@@ -28,10 +28,12 @@
   - The five challenge targets resolve offline.
   - `scripts/prewarm.py` caches their images in advance.
 - **First view of a new field** takes 30–90 s while cutouts download. Background jobs show progress and can be cancelled. The five challenge targets are downloaded in advance (`scripts/prewarm.py`, or automatically at startup in Docker).
+- **Offline (Raspberry Pi without internet).** Only fields, objects and orbit samples fetched before are available, as labelled copies of the real answers. A coverage list reused offline may miss frames released since. Ephemerides, "known objects in field" and the Aladin sky view need internet. See [RASPBERRY_PI.md](RASPBERRY_PI.md).
 - **Withdrawn archive files.** IRSA lists frames of superseded quick releases (QR2) whose files no longer exist. OrbitScope learns this on the first request and replaces those frames; until then a new field may briefly have fewer frames.
 
 ## Infrastructure limitations
 
+- **Raspberry Pi hardware.** The Pi scripts (`deploy/pi/`) have only been checked for syntax so far, not run on a real Pi 5. The SD card holds at most about 6 GB of cutouts (`SPHEREX_CACHE_MAX_MB`).
 - **Single process.** Jobs and rate-limit counters are in memory, which is correct for one backend process. Running several replicas would need Redis or similar.
 - **No user accounts.** Candidate reviews are shared by everyone using the instance. On a public deployment set `REVIEW_TOKEN`: then only people who know the team's token can save reviews; everyone else can still browse.
 - **Minor Planet Center.** Candidates export as CSV, but reporting requires the team's own MPC observatory code and follow-up observations.

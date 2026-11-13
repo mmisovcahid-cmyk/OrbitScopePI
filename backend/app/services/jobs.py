@@ -15,12 +15,12 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable, Optional
 
+from app.core.config import settings
 from app.core.logging_config import get_logger
 from app.core.progress import reporter
 
 logger = get_logger(__name__)
 
-MAX_CONCURRENT_JOBS = 3
 KEEP_FINISHED_S = 30 * 60
 
 
@@ -59,10 +59,10 @@ ErrorMapper = Callable[[BaseException], dict[str, Any]]
 
 
 class JobManager:
-    def __init__(self, max_concurrent: int = MAX_CONCURRENT_JOBS) -> None:
+    def __init__(self, max_concurrent: Optional[int] = None) -> None:
         self.jobs: dict[str, Job] = {}
         self.by_key: dict[str, str] = {}
-        self._max = max_concurrent
+        self._max = max_concurrent or settings.MAX_CONCURRENT_JOBS
         self._sem: Optional[asyncio.Semaphore] = None
 
     def _semaphore(self) -> asyncio.Semaphore:

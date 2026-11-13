@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { SnapshotNote } from '../components/common/OfflineBanner';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Orbit, AlertTriangle, BookOpen, Sigma, Telescope } from 'lucide-react';
@@ -19,6 +20,7 @@ interface SampleStats { n: number; varpi: Rayleigh; node: Rayleigh; argperi: Ray
 interface Clustering {
   objects: ETNO[]; selection: { min_a_au: number; min_q_au: number; max_condition_code?: number; n_total?: number };
   varpi: Rayleigh; node: Rayleigh; argperi: Rayleigh; source: string; missing?: number;
+  offline_snapshot?: { saved_at: string };
   literature?: SampleStats;
 }
 
@@ -214,6 +216,7 @@ export default function PlanetXPage() {
               </div>
             </details>
             <p className="text-[10px] text-gray-600 mt-2">{data.source}{data.missing ? ` · ${t('planetxLive.missing', { n: data.missing })}` : ''}</p>
+            <SnapshotNote snapshot={data.offline_snapshot} />
           </>
         )}
       </div>

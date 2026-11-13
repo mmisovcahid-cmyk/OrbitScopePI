@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { SnapshotNote } from '../components/common/OfflineBanner';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Search, Database, Globe, Compass, AlertTriangle, ExternalLink, Crosshair, Calendar, Radar } from 'lucide-react';
@@ -10,6 +11,7 @@ import { errorText, formatDec, formatRA } from '../lib/spherex';
 interface CloseApproach { date: string; body: string; distance_au: number | null; distance_ld: number | null; velocity_km_s: number | null }
 interface SbdbObject {
   designation: string; name: string; spkid: string; kind: 'asteroid' | 'comet'; numbered: boolean;
+  offline_snapshot?: { saved_at: string };
   orbit_class: { code?: string; name?: string }; neo: boolean; pha: boolean;
   elements: Record<string, number | null>; physical: Record<string, number | string | null>;
   orbit_quality: Record<string, string | number | null>;
@@ -159,6 +161,7 @@ export default function CatalogPage() {
                 {t('catalogLive.designation')}: <span className="font-mono text-gray-300">{obj.designation}</span> · SPK-ID <span className="font-mono text-gray-300">{obj.spkid}</span>
               </p>
               {obj.discovery?.text && <p className="text-xs text-gray-400 mt-1">{obj.discovery.text}</p>}
+              <SnapshotNote snapshot={obj.offline_snapshot} />
             </div>
             <a href={obj.url} target="_blank" rel="noreferrer" className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1 shrink-0">
               {obj.source} <ExternalLink className="w-3 h-3" />

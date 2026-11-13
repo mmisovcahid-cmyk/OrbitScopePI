@@ -14,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routes.catalog import router as catalog_router
+from app.api.routes.ground import router as ground_router
 from app.api.routes.jobs import router as jobs_router
 from app.api.routes.planetx import router as planetx_router
 from app.api.routes.spherex import router as spherex_router
@@ -111,6 +112,7 @@ app.include_router(jobs_router)
 app.include_router(catalog_router)
 app.include_router(planetx_router)
 app.include_router(system_router)
+app.include_router(ground_router)
 
 
 @app.get(

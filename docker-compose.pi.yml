@@ -1,0 +1,43 @@
+# OrbitScope on a Raspberry Pi 5 with Docker (arm64)
+#
+#   sudo deploy/pi/install.sh --docker      # settings, Wi-Fi access point, kiosk, then this file
+#   docker compose -f docker-compose.pi.yml up -d --build     # (re)start by hand
+#
+# Differences from docker-compose.yml (PC / server):
+# - settings come from /etc/orbitscope/orbitscope.env (Pi profile, Wi-Fi values written by orbitscope-net);
+# - data lives in /var/lib/orbitscope on the host (SD card), cache capped at 6 GB;
+# - the web server uses the host network, so the kiosk browser on the Pi is seen as 127.0.0.1
+#   (only the Pi's own screen receives the Wi-Fi password for its QR code) and phones on the
+#   access point reach it on port 80;
+# - the backend is published on 127.0.0.1 only.
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - /etc/orbitscope/orbitscope.env
+    environment:
+      HOST: "0.0.0.0"
+      SPHEREX_CACHE_DIR: /data/cache/spherex
+      OFFLINE_CACHE_DIR: /data/cache/offline
+      ORBITSCOPE_DB_PATH: /data/db/orbitscope.db
+      TRUST_PROXY_HEADERS: "true"
+    volumes:
+      - /var/lib/orbitscope:/data
+    ports:
+      - "127.0.0.1:8000:8000"
+    mem_limit: 3g
+    logging:
+      driver: journald   # logs stay in RAM with the journald settings from install.sh
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    network_mode: host
+    volumes:
+      # deploy/pi/nginx-orbitscope.conf with the container's web root (written by install.sh --docker)
+      - /etc/orbitscope/nginx-docker.conf:/etc/nginx/conf.d/default.conf:ro
+    logging:
+      driver: journald

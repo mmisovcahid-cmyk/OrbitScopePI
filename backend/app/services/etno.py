@@ -17,6 +17,7 @@ from typing import Any
 
 from cachetools import TTLCache
 
+from app.core import offline
 from app.core.logging_config import get_logger
 from app.services import jpl_catalog as jc
 
@@ -32,6 +33,8 @@ MIN_A_AU = 150.0
 MIN_Q_AU = 30.0
 
 _cache: TTLCache = TTLCache(maxsize=4, ttl=12 * 3600)
+# One snapshot per selection, so a changed cut never serves an old sample.
+SNAPSHOT_KEY = f"etno:a>={MIN_A_AU}:q>={MIN_Q_AU}"
 
 
 def rayleigh(angles_deg: list[float]) -> dict[str, float]:
@@ -93,7 +96,13 @@ async def etno_analysis() -> dict[str, Any]:
     """
     if "result" in _cache:
         return _cache["result"]
-    raw = await jc.sbdb_query_etnos(MIN_A_AU, MIN_Q_AU)
+    try:
+        raw = await jc.sbdb_query_etnos(MIN_A_AU, MIN_Q_AU)
+    except jc.JPLUnavailable:
+        snap = offline.load("planetx", SNAPSHOT_KEY)
+        if snap is None:
+            raise
+        return offline.mark(snap[0], snap[1])
     rows = [r for r in (_row(x) for x in raw) if r]
     if not rows:
         raise jc.JPLUnavailable("no eTNO orbits could be retrieved")
@@ -122,4 +131,5 @@ async def etno_analysis() -> dict[str, Any]:
         "missing": 0,
     }
     _cache["result"] = out
+    offline.save("planetx", SNAPSHOT_KEY, out)
     return out

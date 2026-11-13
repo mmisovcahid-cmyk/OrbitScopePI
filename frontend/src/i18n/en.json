@@ -15,7 +15,8 @@
     "about": "About",
     "settings": "Settings",
     "language": "Language",
-    "collapse": "Collapse Sidebar"
+    "collapse": "Collapse Sidebar",
+    "ground": "Ground Node"
   },
   "dashboard": {
     "title": "Sky Explorer Dashboard",
@@ -818,5 +819,66 @@
     },
     "baseline": "Time between A and B: {{days}} days",
     "diffHelp": "Red = brighter in B, blue = brighter in A. A moving star leaves a blue/red pair; a variable star a single colour."
+  },
+  "pi": {
+    "offlineTitle": "Offline:",
+    "offlineBody": "no internet connection. Only data saved earlier on this device is shown (real archive data, with its date); new fields cannot be loaded.",
+    "snapshot": "Offline copy of the real JPL answer, saved {{when}}.",
+    "aladinOffline": "The sky context (Aladin Lite) needs an internet connection and is not available offline.",
+    "qrWifi": "1. Join Wi-Fi",
+    "qrSite": "2. Open OrbitScope",
+    "hideQr": "Hide QR codes"
+  },
+  "ground": {
+    "title": "Ground Node",
+    "intro": "This Raspberry Pi works as a small observing station. Any camera can feed it: the Pi camera in this prototype, an uploaded image sequence, and later a telescope through the same input. Every source goes through the same analysis on the Pi: trail detection, plate solving and the same sky direction in SPHEREx.",
+    "inCamera": "Pi camera",
+    "inUpload": "Image upload",
+    "inIndi": "Telescope (INDI, planned)",
+    "solver": "Plate solver",
+    "uploadTitle": "Upload an image sequence",
+    "uploadHint": "Several frames of the same field from a tripod (5–30 s exposures). Time and place are read from EXIF. The source camera is shown as it is.",
+    "labelPh": "Session name (e.g. roof, 13 Nov)",
+    "uploadBtn": "Upload and analyse",
+    "uploading": "Uploading…",
+    "pickFiles": "Choose the frames first.",
+    "cameraTitle": "Pi camera",
+    "cameraHint": "Takes a frame sequence with this station's camera and analyses it.",
+    "nFrames": "Frames",
+    "exposure": "Exposure (s)",
+    "captureBtn": "Capture and analyse",
+    "capturing": "Capturing…",
+    "noCamera": "No camera on this machine",
+    "indiNote": "A telescope (INDI protocol: hundreds of mounts and cameras) will feed the same chain. Not connected in this prototype.",
+    "busy": {
+      "upload": "Uploading frames…",
+      "capture": "Capturing with the Pi camera…",
+      "analyze": "Analysing on the station (trails, plate solving)…"
+    },
+    "sessions": "Sessions",
+    "noSessions": "No sessions yet.",
+    "framesShort": "frames",
+    "trailsShort": "trails",
+    "src": {
+      "upload": "Uploaded images",
+      "pi_camera": "Pi camera (this station)"
+    },
+    "trails": "Trails",
+    "dashed": "{{n}} dashed (probably aircraft)",
+    "fov": "field width {{w}}°",
+    "satId": "Satellite identification",
+    "satPending": "Next step: comparison with CelesTrak orbits.",
+    "toSpherex": "Same direction in SPHEREx",
+    "frame": "Frame",
+    "noTz": "local time, no timezone",
+    "noTime": "no time in file",
+    "framesWithTrails": "Frames with trails:",
+    "length": "Length",
+    "angle": "Angle",
+    "kind": "Kind",
+    "kindPlane": "aircraft? (dashed)",
+    "kindUnknown": "unidentified trail",
+    "honesty": "Trails are straight lines that appear in one frame only: satellites, aircraft or meteors. They are not discoveries. Where something cannot be determined (no time, no solver) the page says so.",
+    "pickSession": "Upload frames, capture with the camera, or pick a session."
   }
 }
