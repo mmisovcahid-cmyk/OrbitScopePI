@@ -1,0 +1,822 @@
+{
+  "app": {
+    "title": "OrbitScope",
+    "subtitle": "SPHEREx Monitorinq Platforması",
+    "description": "NASA SPHEREx astronomik müşahidə monitorinqi və hərəkət edən obyekt aşkarlama platforması"
+  },
+  "nav": {
+    "blink": "SPHEREx Blink",
+    "dashboard": "Səma Tədqiqatçısı",
+    "detection": "Aşkarlama",
+    "analysis": "Təhlil",
+    "comparison": "Müqayisə",
+    "planetx": "Planet X",
+    "catalog": "Kataloq",
+    "about": "Haqqında",
+    "settings": "Parametrlər",
+    "language": "Dil",
+    "collapse": "Paneli yığ"
+  },
+  "dashboard": {
+    "title": "Səma Tədqiqatçısı İdarə Paneli",
+    "subtitle": "SPHEREx müşahidələrinin və aşkarlamaların real vaxt monitorinqi",
+    "stats": {
+      "observations": "Ümumi Müşahidələr",
+      "candidates": "Aşkarlama Namizədləri",
+      "knownObjects": "Məlum Obyektlər",
+      "regions": "Səma Bölgələri",
+      "activePipelines": "Aktiv Boru Xətləri",
+      "dataSources": "Məlumat Mənbələri"
+    },
+    "recentDetections": "Son Aşkarlamalar",
+    "observationTimeline": "Müşahidə Xətti",
+    "skyMap": "İnteraktiv Səma Xəritəsi",
+    "noData": "Müşahidə məlumatı mövcud deyil",
+    "lastUpdated": "Son Yenilənmə"
+  },
+  "detection": {
+    "title": "Hərəkət Edən Obyektin Aşkarlanması",
+    "subtitle": "Çoxdövrlü SPHEREx müşahidələrini müqayisə edərək hərəkət edən obyektləri aşkarlayın",
+    "regionSelector": {
+      "title": "Bölgə Seçimi",
+      "ra": "Düz Eniş (°)",
+      "dec": "Deklinasiya (°)",
+      "radius": "Axtarış Radiusu (dəqiqə)",
+      "search": "Bölgəni Axtar",
+      "raHelp": "Aralıq: 0° - 360°",
+      "decHelp": "Aralıq: -90° - +90°",
+      "radiusHelp": "Tövsiyə: 5-30 dəqiqə"
+    },
+    "observations": {
+      "title": "Mövcud Müşahidələr",
+      "select": "Müqayisə üçün müşahidələr seçin",
+      "epoch": "Dövrü",
+      "band": "Zolaq",
+      "quality": "Keyfiyyət",
+      "sources": "Mənbələr",
+      "noObservations": "Bu bölgə üçün müşahidə tapılmadı",
+      "selected": "seçildi"
+    },
+    "pipeline": {
+      "title": "Aşkarlama Boru Xətti",
+      "run": "Aşkarlama Boru Xəttini İşə Sal",
+      "running": "Boru Xətti İşləyir...",
+      "complete": "Boru Xətti Tamamlandı",
+      "failed": "Boru Xətti Uğursuz Oldu",
+      "stages": {
+        "alignment": "Şəkil Uyğunlaşdırma",
+        "subtraction": "Şəkil Çıxarma",
+        "sourceExtraction": "Mənbə Çıxarılması",
+        "crossMatch": "Çarpaz Uyğunlaşdırma",
+        "classification": "Təsnifat"
+      },
+      "selectTwo": "Boru xəttini işə salmaq üçün dəqiq 2 müşahidə seçin",
+      "processing": "İşlənir..."
+    },
+    "results": {
+      "title": "Aşkarlama Nəticələri",
+      "candidates": "Tapılmış Namizədlər",
+      "known": "Məlum Obyektlər",
+      "artifacts": "Ehtimal Olunan Artefaktlar",
+      "noResults": "Aşkarlama nəticəsi yoxdur. Hərəkət edən obyektləri aşkarlamaq üçün boru xəttini işə salın.",
+      "viewDetails": "Ətraflı Bax",
+      "export": "Nəticələri İxrac Et"
+    }
+  },
+  "analysis": {
+    "title": "Namizəd Təhlili",
+    "subtitle": "Aşkarlama namizədinin ətraflı təhlili",
+    "header": {
+      "candidate": "Namizəd",
+      "detectedOn": "Aşkarlanma Tarixi",
+      "confidence": "Etibar Dərəcəsi",
+      "status": "Status"
+    },
+    "measurements": {
+      "title": "Aşkarlama Ölçmələri",
+      "displacement": "Sürüşmə",
+      "positionAngle": "Mövqe Bucağı",
+      "snr": "Siqnal-Səs-Küy Nisbəti",
+      "fluxRatio": "Axın Nisbəti",
+      "magnitude": "Təxmini Parlaqlıq",
+      "velocity": "Görünən Sürət",
+      "timeInterval": "Zaman Aralığı",
+      "arcsec": "qövs saniyəsi",
+      "arcsecPerDay": "qövs saniyəsi/gün",
+      "degrees": "dərəcə",
+      "days": "gün"
+    },
+    "images": {
+      "title": "Şəkil Kəsimləri",
+      "observation1": "Müşahidə 1 (Dövrü 1)",
+      "observation2": "Müşahidə 2 (Dövrü 2)",
+      "difference": "Fərq Şəkili",
+      "noImage": "Şəkil mövcud deyil"
+    },
+    "crossMatch": {
+      "title": "Çarpaz Uyğunlaşdırma Nəticələri",
+      "matchFound": "Uyğunluq Tapıldı",
+      "noMatch": "Axtarış radiusunda kataloq uyğunluğu tapılmadı",
+      "objectName": "Obyekt Adı",
+      "objectId": "Obyekt ID",
+      "separation": "Bucaq Məsafəsi",
+      "objectType": "Obyekt Növü",
+      "searchRadius": "Axtarış Radiusu"
+    },
+    "classification": {
+      "title": "Təsnifat",
+      "reason": "Təsnifat Əsaslandırması",
+      "confidence": "Təsnifat Etibarı",
+      "status": "Təyin Edilmiş Status"
+    },
+    "provenance": {
+      "title": "Məlumat Mənşəyi",
+      "source": "Məlumat Mənbəyi",
+      "pipeline": "Boru Xətti Versiyası",
+      "simulated": "Simulyasiya Məlumatı",
+      "quality": "Məlumat Keyfiyyəti",
+      "calibration": "Kalibrasiya Statusu",
+      "notes": "İşləmə Qeydləri",
+      "yes": "Bəli",
+      "no": "Xeyr"
+    },
+    "notFound": "Namizəd tapılmadı"
+  },
+  "comparison": {
+    "title": "Müşahidə Müqayisəsi",
+    "subtitle": "Dəyişiklikləri müəyyən etmək üçün çoxdövrlü müşahidələri müqayisə edin",
+    "controls": {
+      "observation1": "Müşahidə 1",
+      "observation2": "Müşahidə 2",
+      "mode": "Göstərmə Rejimi",
+      "sideBySide": "Yan-yana",
+      "overlay": "Üst-üstə",
+      "blink": "Yanıb-Sönmə",
+      "difference": "Fərq",
+      "blinkSpeed": "Yanıb-Sönmə Sürəti",
+      "opacity": "Üst-üstə Şəffaflığı",
+      "syncZoom": "Böyütməni Sinxronlaşdır",
+      "zoomIn": "Böyüt",
+      "zoomOut": "Kiçilt",
+      "resetView": "Görünüşü Sıfırla"
+    },
+    "info": {
+      "timeInterval": "Zaman Aralığı",
+      "epoch1": "Dövrü 1",
+      "epoch2": "Dövrü 2",
+      "changes": "Aşkarlanan Dəyişikliklər",
+      "noChanges": "Əhəmiyyətli dəyişiklik aşkarlanmadı"
+    },
+    "selectObservations": "Müqayisə etmək üçün iki müşahidə seçin"
+  },
+  "planetx": {
+    "title": "Planet X Tədqiqatı",
+    "subtitle": "Xarici Günəş sistemində hipotetik doqquzuncu planetin sübutlarının araşdırılması",
+    "disclaimer": "Doqquzuncu Planet birbaşa təsdiqlənməyib. Burada təqdim olunan sübutlar onun mümkün mövcudluğunu göstərən cari nəzəri proqnozları və müşahidə anomaliyalarını əks etdirir.",
+    "overview": {
+      "title": "Hipotezanın İcmalı",
+      "description": "Doqquzuncu Planet hipotezi uzaq xarici Günəş Sistemində böyük, kəşf edilməmiş bir planetin mövcudluğunu təklif edir. Bu hipotetik planet uzaq trans-Neptun obyektlərinin (TNO) orbitlərində müşahidə olunan bir neçə anomaliyanı izah edə bilər."
+    },
+    "evidence": {
+      "title": "Dəstəkləyici Sübutlar",
+      "orbitalClustering": {
+        "title": "Orbital Qruplaşma",
+        "description": "Bir neçə uzaq TNO oxşar orbital elementləri paylaşır (perihelion arqumenti, qalxan düyünün uzunluğu), bu da görünməyən kütləvi cismin cazibə təsirini göstərir."
+      },
+      "perihelionDetachment": {
+        "title": "Perihelion Ayrılması",
+        "description": "Sedna və 2012 VP113 kimi obyektlərin perihelionları Neptunun təsir zonasından çox uzaqdır, bu da uzaq kütləvi narahatedici ilə izah oluna bilər."
+      },
+      "solarObliquity": {
+        "title": "Günəş Əyilməsi",
+        "description": "Günəşin fırlanma oxunun planet orbital müstəvisinə nəzərən ~6° əyilməsi uzaq kütləvi planetin cazibə burulma momenti ilə yarana bilər."
+      },
+      "retrogradeOrbits": {
+        "title": "Retroqrad TNO Orbitləri",
+        "description": "Yüksək meyilli və retroqrad trans-Neptun obyektlərinin mövcudluğu Doqquzuncu Planet ilə sekulyar qarşılıqlı təsirlə izah oluna bilər."
+      },
+      "kuiperCliff": {
+        "title": "Kuiper Uçurumu",
+        "description": "Kuiper kəmərinin 50 AV yaxınlığında görünən kənarı uzaq kütləvi planetin cazibə təsiri ilə formalaşa bilər."
+      }
+    },
+    "predictions": {
+      "title": "Proqnozlaşdırılmış Parametrlər",
+      "mass": "Kütlə",
+      "semiMajorAxis": "Yarım Böyük Ox",
+      "eccentricity": "Ekssentrisitet",
+      "inclination": "Meyillik",
+      "orbitalPeriod": "Orbital Dövr",
+      "distance": "Cari Məsafə",
+      "magnitude": "Proqnozlaşdırılmış Parlaqlıq",
+      "parameter": "Parametr",
+      "value": "Dəyər",
+      "uncertainty": "Qeyri-müəyyənlik",
+      "source": "Mənbə"
+    },
+    "tno": {
+      "title": "TNO Orbital Paylanması",
+      "subtitle": "Potensial qruplaşma göstərən uzaq trans-Neptun obyektlərinin orbital elementləri"
+    },
+    "references": {
+      "title": "Əsas İstinadlar"
+    }
+  },
+  "catalog": {
+    "title": "JPL Kataloq Brauzeri",
+    "subtitle": "Məlum Günəş sistemi obyektləri üçün JPL Kiçik Cisim Verilənlər Bazasını araşdırın",
+    "search": {
+      "placeholder": "Ad və ya təyinat ilə axtar...",
+      "objectType": "Obyekt Növü",
+      "all": "Bütün Növlər",
+      "asteroid": "Asteroidlər",
+      "comet": "Kometalar",
+      "tno": "Trans-Neptun Obyektləri",
+      "neo": "Yalnız Yer Yaxını Obyektlər",
+      "pha": "Yalnız Potensial Təhlükəli",
+      "search": "Axtar",
+      "clear": "Təmizlə"
+    },
+    "results": {
+      "title": "Axtarış Nəticələri",
+      "noResults": "Axtarış meyarlarınıza uyğun obyekt tapılmadı",
+      "showing": "Göstərilir",
+      "of": "/",
+      "objects": "obyekt"
+    },
+    "detail": {
+      "title": "Obyekt Təfərrüatları",
+      "orbital": "Orbital Elementlər",
+      "physical": "Fiziki Parametrlər",
+      "semiMajorAxis": "Yarım Böyük Ox",
+      "eccentricity": "Ekssentrisitet",
+      "inclination": "Meyillik",
+      "lonAscNode": "Qalxan Düyünün Uzunluğu",
+      "argPerihelion": "Perihelion Arqumenti",
+      "meanAnomaly": "Orta Anomaliya",
+      "orbitalPeriod": "Orbital Dövr",
+      "perihelion": "Perihelion Məsafəsi",
+      "aphelion": "Afelion Məsafəsi",
+      "absoluteMag": "Mütləq Parlaqlıq",
+      "diameter": "Diametr",
+      "albedo": "Albedo",
+      "isNEO": "Yer Yaxını Obyekt",
+      "isPHA": "Potensial Təhlükəli",
+      "lastObservation": "Son Müşahidə",
+      "dataSource": "Məlumat Mənbəyi",
+      "au": "AV",
+      "km": "km",
+      "years": "il",
+      "degrees": "°",
+      "yes": "Bəli",
+      "no": "Xeyr",
+      "selectObject": "Təfərrüatları görmək üçün obyekt seçin"
+    }
+  },
+  "about": {
+    "title": "OrbitScope Haqqında",
+    "subtitle": "Elmi metodologiya, məlumat mənbələri və platforma sənədləri",
+    "overview": {
+      "title": "Platformanın İcmalı",
+      "description": "OrbitScope real NASA SPHEREx şəkillərində səmanın necə dəyişdiyini araşdırmaq üçün ictimai veb alətdir. Obyekt adı və ya koordinat daxil edin - həmin nöqtənin bütün SPHEREx ekspozisiyalarını üst-üstə düzülmüş qısa video kimi oynadır; bu şəkillərdə hərəkətli obyektləri axtarır və hər aşkarlamanı NASA/JPL, Gaia və CatWISE kataloqları ilə yoxlayır.",
+      "mission": "Məqsəd: SPHEREx-in zaman məlumatını hər kəs üçün asan baxılan etmək ki, hərəkət edən və dəyişən obyektləri - asteroidləri, kometləri, yaxın ulduzları və qəhvəyi cırtdanları - gözlə tapmaq və yoxlamaq mümkün olsun."
+    },
+    "methodology": {
+      "title": "Aşkarlama Metodologiyası",
+      "step1Title": "Real SPHEREx məlumatı",
+      "step1Desc": "Level-2 şəkillər IRSA-nın TAP servisi ilə tapılır (yeni ictimai buraxılışlar avtomatik daxil olur), hədəf ətrafında kəsilir, zodiakal işıq və bayraqlı piksellər çıxarılır.",
+      "step2Title": "Üst-üstə düzmə və toplama",
+      "step2Desc": "Hər ekspozisiya bir şimal-yuxarı şəbəkəyə köçürülür (hər şəklin SIP təhrifli WCS-i ilə); bir keçidin ekspozisiyaları tərs dispersiya ilə toplanır.",
+      "step3Title": "Hərəkətli obyekt axtarışı",
+      "step3Desc": "Asteroidlər: hər detektor üçün sabit səma şablonu çıxılır və qalıqlar SPHEREx-in ~7 dəqiqəlik ziyarətləri daxilində birləşdirilir. Ulduzlar/qəhvəyi cırtdanlar: mənbələrin mərkəzi hər keçiddə ölçülür və əhəmiyyətli yerdəyişmələr bildirilir.",
+      "step4Title": "Kataloqlarla müqayisə",
+      "step4Desc": "Aşkarlamalar JPL SB Ident-dən məlum asteroid və kometlərlə, Gaia DR3 / CatWISE2020 ulduzları ilə (xüsusi hərəkətləri daxil olmaqla) müqayisə olunur.",
+      "step5Title": "Qiymətləndirmə",
+      "step5Desc": "Namizədlər təsnif edilir (məlum obyekt, yeni hərəkətli, stasionar keçici, dəyişkən) və saxlanılır; istifadəçilər onları real / artefakt kimi işarələyir və astrometriyanı CSV ilə ixrac edir."
+    },
+    "dataSources": {
+      "title": "Məlumat Mənbələri",
+      "spherex": "NASA SPHEREx Level-2 spektral şəkilləri (NASA/IPAC IRSA: TAP, datalink, IBE kəsikləri)",
+      "jpl": "NASA/JPL Kiçik Cisimlər Bazası, Horizons və SB Ident API-ləri",
+      "mpc": "CDS Sesame və NED ad həlledicilər (obyekt adından koordinata)",
+      "gaia": "ESA Gaia DR3 və CatWISE2020 (IRSA) istinad kataloqları",
+      "note": "SPHEREx Blink, Səma Tədqiqatçısı, Aşkarlama, Müqayisə, Kataloq və Planet X klaster testində göstərilən bütün məlumat realdır və bu ictimai servislərdən canlı alınır; heç biri API açarı tələb etmir. Ədəbiyyat dəyərləri (Planet X sübutları və proqnozları) belə işarələnib."
+    },
+    "limitations": {
+      "title": "Məhdudiyyətlər və İmtinalar",
+      "item1": "Tək SPHEREx ekspozisiyası hərəkətli obyektlər üçün təxminən V≈17-18-ə çatır; daha zəif asteroidlər adətən tapılmır.",
+      "item2": "Çox parlaq ulduzlar SPHEREx detektorlarını doydurur və fotometriya/astrometriyadan çıxarılır.",
+      "item3": "Asteroid axtarışı aşkarlamaları bir ~7 dəqiqəlik ziyarət daxilində birləşdirir, buna görə çox yavaş obyektlər (məs. uzaq Doqquzuncu Planet) sabit görünür.",
+      "item4": "Namizədlər kəşf deyil: müstəqil təsdiq tələb edir və müvafiq qurumlara bildirilməlidir.",
+      "item5": "Planet X sübutları dərc olunmuş hipotezdir; buradakı klaster testi müşahidə seçimi meylini düzəltmir."
+    },
+    "credits": {
+      "title": "Kreditlər və İstinadlar",
+      "spherexTeam": "NASA SPHEREx Missiya Komandası",
+      "jplSSD": "JPL Günəş Sistemi Dinamikası Qrupu",
+      "caltech": "Kaliforniya Texnologiya İnstitutu",
+      "battygin": "Batygin & Brown (2016) - Uzaq Nəhəng Planetin Sübutu",
+      "license": "NASA Space Apps Challenge üçün təhsil və tədqiqat məqsədilə hazırlanıb. SPHEREx məlumatı NASA/JPL-Caltech və NASA/IPAC IRSA-ya məxsusdur."
+    }
+  },
+  "common": {
+    "loading": "Yüklənir...",
+    "error": "Xəta baş verdi",
+    "retry": "Yenidən cəhd et",
+    "noData": "Məlumat mövcud deyil",
+    "save": "Saxla",
+    "cancel": "Ləğv et",
+    "close": "Bağla",
+    "delete": "Sil",
+    "edit": "Redaktə et",
+    "view": "Bax",
+    "back": "Geri",
+    "next": "Növbəti",
+    "previous": "Əvvəlki",
+    "search": "Axtar",
+    "filter": "Filtr",
+    "sort": "Sırala",
+    "export": "İxrac et",
+    "refresh": "Yenilə",
+    "actions": "Əməliyyatlar",
+    "details": "Təfərrüatlar",
+    "summary": "Xülasə",
+    "total": "Cəmi",
+    "count": "Say",
+    "name": "Ad",
+    "type": "Növ",
+    "status": "Status",
+    "date": "Tarix",
+    "time": "Vaxt",
+    "coordinates": "Koordinatlar",
+    "ra": "Düz Eniş",
+    "dec": "Deklinasiya",
+    "magnitude": "Parlaqlıq",
+    "simulated": "Simulyasiya",
+    "real": "Əsl Məlumat",
+    "confirmed": "Təsdiqlənmiş",
+    "unconfirmed": "Təsdiqlənməmiş",
+    "page": "Səhifə",
+    "of": "/",
+    "results": "nəticə",
+    "language": {
+      "en": "English",
+      "az": "Azərbaycan"
+    },
+    "simulatedNotice": "Bu səhifə simulyasiya edilmiş demo məlumatla işləyir ([SIMULATED] işarəli). Real SPHEREx şəkilləri üçün bura keçin:"
+  },
+  "status": {
+    "known_object": "Məlum Obyekt",
+    "candidate": "Namizəd",
+    "unlikely_candidate": "Uyğunsuz Namizəd",
+    "probable_artifact": "Ehtimal Olunan Artefakt",
+    "needs_review": "Yoxlama Tələb Olunur",
+    "pending": "Gözləyir",
+    "running": "İşləyir",
+    "completed": "Tamamlandı",
+    "failed": "Uğursuz"
+  },
+  "errors": {
+    "networkError": "Serverə qoşulmaq mümkün deyil. Bağlantınızı yoxlayın.",
+    "serverError": "Server xətası baş verdi. Zəhmət olmasa daha sonra yenidən cəhd edin.",
+    "notFound": "Tələb olunan resurs tapılmadı.",
+    "validationError": "Zəhmət olmasa daxil etdiyiniz dəyərləri yoxlayın.",
+    "unauthorized": "Bu əməliyyatı yerinə yetirmək icazəniz yoxdur.",
+    "timeout": "Sorğunun vaxtı keçdi. Yenidən cəhd edin.",
+    "rateLimited": "Çox sayda sorğu. Zəhmət olmasa bir az gözləyin.",
+    "invalidCoordinates": "Yanlış koordinatlar: RA 0–360°, Dec −90…+90° aralığında olmalıdır.",
+    "pipelineError": "Aşkarlama boru xəttində xəta baş verdi.",
+    "noObservationsSelected": "Boru xəttini işə salmadan əvvəl müşahidələr seçin."
+  },
+  "tooltips": {
+    "ra": "Düz Eniş dərəcə ilə (0°-dan 360°-yə) və ya saat:dəqiqə:saniyə formatında",
+    "dec": "Deklinasiya dərəcə ilə (-90°-dan +90°-yə) və ya dərəcə:dəqiqə:saniyə formatında",
+    "snr": "Siqnal-Səs-Küy Nisbəti — yüksək dəyərlər daha etibarlı aşkarlamaları göstərir",
+    "displacement": "Dövrlar arasında aşkarlamalar arasındakı bucaq məsafəsi",
+    "fluxRatio": "İki dövr arasında ölçülmüş axın nisbəti",
+    "magnitude": "Aşkarlanan obyektin təxmini görünən parlaqlığı",
+    "velocity": "Aşkarlanan obyektin görünən bucaq sürəti",
+    "simulated": "Bu məlumat nümayiş məqsədləri üçün simulyasiya edilmişdir",
+    "confidence": "Təsnifat etibar xalı (0-1)",
+    "perihelion": "Günəşə ən yaxın yanaşma məsafəsi",
+    "aphelion": "Günəşdən ən uzaq məsafə",
+    "neo": "Yer Yaxını Obyekt: perihelion məsafəsi 1.3 AV-dan az",
+    "pha": "Potensial Təhlükəli Asteroid: mütləq parlaqlıq ≤ 22 və MOID ≤ 0.05 AV"
+  },
+  "blink": {
+    "title": "SPHEREx Zaman Görüntüləyicisi",
+    "subtitle": "Səma koordinatı və ya obyekt adı daxil edin. OrbitScope həmin nöqtənin bütün real SPHEREx şəkillərini NASA/IPAC IRSA-dan yükləyir, onları üst-üstə düzür və qısa video kimi oynadır ki, hərəkət edən və dəyişən obyektlər asanlıqla görünsün.",
+    "realData": "REAL SPHEREx MƏLUMATI",
+    "loading": "SPHEREx şəkilləri IRSA-dan yüklənir… {{seconds}} san",
+    "loadingShort": "SPHEREx şəkilləri yüklənir…",
+    "loadingHint": "Yeni sahə üçün ilk sorğu 1–2 dəqiqə çəkə bilər. Təkrar baxışlar dərhal açılır (keş).",
+    "search": {
+      "label": "Obyekt adı və ya koordinatlar",
+      "placeholder": "Barnard's Star · 08h55m10.831s -7d14m42.53s · 269.452 4.693",
+      "button": "Göstər",
+      "fov": "Baxış sahəsi",
+      "detector": "Detektor (dalğa uzunluğu)",
+      "allDetectors": "Bütün detektorlar",
+      "mode": "Kadrlar",
+      "modeEpoch": "Hər müşahidə keçidi üçün bir toplanmış şəkil",
+      "modeFrames": "Ayrı-ayrı ekspozisiyalar",
+      "perEpoch": "Hər keçiddə toplanan ekspozisiya",
+      "maxFrames": "Maks. ekspozisiya",
+      "tryTargets": "Sınaq hədəfləri:",
+      "modePass": "Bir müşahidə keçidinin ayrı ekspozisiyaları"
+    },
+    "errors": {
+      "empty": "Obyekt adı və ya koordinat daxil edin.",
+      "timeout": "Sorğu çox uzun çəkdi. IRSA məşğul ola bilər; yenidən cəhd edin və ya kiçik sahə seçin.",
+      "network": "OrbitScope backend-inə ({{url}}) qoşulmaq olmur. Layihənin backend qovluğunda python run.py ilə işə salın və 8000 portunda yalnız bir backend-in işlədiyinə əmin olun."
+    },
+    "intro": {
+      "title": "Necə işləyir",
+      "step1": "Obyekt adını (məs. Barnard's Star) və ya RA/Dec koordinatlarını onluq və ya saat-dəqiqə-saniyə formatında yazın, ya da sınaq hədəfini seçin.",
+      "step2": "OrbitScope həmin nöqtəni əhatə edən bütün SPHEREx ekspozisiyalarını tapır, zodiakal işığı çıxır, bayraqlı pikselləri maskalayır və şəkilləri şimal yuxarı olmaqla üst-üstə düzür.",
+      "step3": "Ardıcıllığı oynadın. Hərəkət edən obyektlər kadrlar arasında yerini dəyişir, dəyişkən ulduzların parlaqlığı dəyişir. Dəyişiklikləri qabartmaq üçün Fərq və ya Hərəkət rəngi rejimindən istifadə edin.",
+      "note": "Məlumat: NASA SPHEREx Level-2 şəkilləri, NASA/IPAC IRSA vasitəsilə. Yeni ictimai buraxılışlar avtomatik daxil olur. Linkləri paylaşmaq və saytlara yerləşdirmək olar."
+    },
+    "panels": {
+      "target": "Hədəf",
+      "customPosition": "İstifadəçi mövqeyi",
+      "properMotion": "Xüsusi hərəkət",
+      "resolver": "Mövqe mənbəyi",
+      "frame": "Kadr {{n}} / {{total}}",
+      "date": "Tarix",
+      "exposures": "Toplanmış ekspozisiyalar",
+      "detectors": "Detektorlar",
+      "wavelength": "Dalğa uzunluğu",
+      "masked": "Bayraqlı piksellər",
+      "flags": "Bu kəsikdəki keyfiyyət bayraqları",
+      "sourceFiles": "Mənbə FITS faylları ({{n}})",
+      "coverage": "SPHEREx əhatəsi",
+      "coverageSummary": "{{epochs}} müşahidə keçidində {{frames}} ekspozisiya, {{from}} → {{to}}.",
+      "epoch": "Keçid"
+    },
+    "share": {
+      "title": "Paylaş və yerləşdir",
+      "copyLink": "Linki kopyala",
+      "copyEmbed": "Embed kodunu kopyala",
+      "copied": "Kopyalandı!",
+      "copyManual": "Bunu kopyalayın:"
+    },
+    "viewer": {
+      "aria": "SPHEREx şəkil ardıcıllığı. Boşluq oynadır və ya dayandırır, ox düymələri kadrlar arasında keçir.",
+      "hoverHint": "Koordinat və piksel dəyəri üçün siçanı şəklin üzərində saxlayın. Boşluq = oynat/dayandır, ← → = addım.",
+      "prev": "Əvvəlki kadr",
+      "next": "Növbəti kadr",
+      "playPause": "Oynat / dayandır",
+      "frame": "Kadr",
+      "speed": "Sürət",
+      "modes": {
+        "blink": "Blink",
+        "difference": "Fərq",
+        "motion": "Hərəkət rəngi",
+        "stack": "Cəm"
+      },
+      "modeHelp": {
+        "blink": "Kadrları zaman ardıcıllığı ilə oynadır.",
+        "difference": "Cari kadr çıxılsın istinad kadrı: qırmızı = indi daha parlaq, mavi = indi daha zəif. Sabit ulduzlar silinir.",
+        "motion": "İstinad kadrı qırmızı, cari kadr mavi-yaşıl. Sabit ulduzlar ağ görünür; hərəkət edən obyektlər qırmızı/mavi cüt kimi görünür.",
+        "stack": "Bütün kadrların ortalaması: zəif sabit mənbələr görünür, hərəkət edənlər yayılır."
+      },
+      "reference": "İstinad",
+      "stretch": "Kontrast",
+      "colormap": "Rənglər",
+      "targetMarker": "Hədəfin proqnoz mövqeyini göstər",
+      "maskOverlay": "Bayraqlı / doymuş pikselləri vurğula",
+      "smooth": "Hamar piksellər",
+      "black": "Qara səviyyə",
+      "white": "Ağ səviyyə",
+      "stackLabel": "{{n}} kadrın cəmi (daha dərin, sabit mənbələr)"
+    },
+    "flagHelp": {
+      "OVERFLOW": "Detektor doyub (parlaq mənbə)",
+      "SUR_ERROR": "Ramp uyğunlaşdırma problemi",
+      "NONLINEAR": "Piksel qeyri-xətti rejimdədir",
+      "PERSIST": "Əvvəlki parlaq mənbədən qalıq iz ola bilər",
+      "OUTLIER": "Kənar dəyər / kosmik şüa ehtimalı (maskalanıb)",
+      "TRANSIENT": "Keçici zərbə (maskalanıb)",
+      "HOT": "İsti piksel (maskalanıb)",
+      "NONFUNC": "İşləməyən piksel (maskalanıb)",
+      "DICHROIC": "Dixroik artefakt bölgəsi"
+    },
+    "overlay": {
+      "title": "Kataloq overlay",
+      "hint": "Markerlər hər ulduzun xüsusi hərəkəti ilə kadrın tarixinə köçürülür. Bütöv dairə: > 0.2″/il.",
+      "magLimit": "Ulduz ölçüsü"
+    },
+    "phot": {
+      "title": "Spektr və işıq əyrisi",
+      "measureTarget": "{{name}} ölç",
+      "measurePick": "Seçilmiş nöqtəni ölç",
+      "pickHint": "Əvvəlcə mövqe seçmək üçün şəklin üzərinə klikləyin.",
+      "picked": "Seçilmiş nöqtə",
+      "explain": "SPHEREx xətti dəyişən filtrlərdən istifadə edir, buna görə hər ekspozisiya mənbəni bir az fərqli dalğa uzunluğunda görür. Eyni nöqtəni çoxlu ekspozisiyada ölçmək 0.75–5 µm spektri və işıq əyrisini verir. İlk ölçmə 1–3 dəqiqə çəkir.",
+      "loading": "SPHEREx ekspozisiyalarında ölçülür… {{seconds}} san",
+      "summary": "{{total}} ölçmədən {{good}} yaxşı · apertura {{ap}}″",
+      "showFlagged": "{{n}} bayraqlı/doymuş nöqtəni göstər",
+      "noGood": "Bütün ölçmələr bayraqlıdır (adətən mənbə doyub — SPHEREx üçün çox parlaqdır). Yenə də görmək üçün 'göstər' qutusunu işarələyin.",
+      "spectrum": "Spektr (axın / dalğa uzunluğu)",
+      "lightCurve": "İşıq əyrisi (axın / zaman)",
+      "saturated": "doyub",
+      "flagged": "aperturada bayraqlı piksellər",
+      "lvfNote": "rəng = detektor"
+    },
+    "aladin": {
+      "title": "Səma konteksti (Aladin Lite)",
+      "intro": "Eyni sahə bütün səma xəritələrində (NASA/IPAC IRSA-dan): optik (DSS2), yaxın infraqırmızı (2MASS) və 4.6 µm (AllWISE W2 — soyuq qəhvəyi cırtdanlar burada ən parlaqdır). Mavi çərçivə: SPHEREx kəsiyi; çəhrayı nişan: hədəfin SPHEREx epoxasındakı mövqeyi.",
+      "loading": "Aladin Lite CDS-dən yüklənir…",
+      "error": "Aladin Lite (CDS) hazırda yüklənmədi. Yuxarıdakı Aladin keçidindən istifadə edin və ya bir az sonra yenidən cəhd edin.",
+      "credit": "Aladin Lite © CDS, Strasburq Universiteti / CNRS. HiPS xəritələri DSS2, 2MASS, AllWISE — NASA/IPAC IRSA vasitəsilə."
+    },
+    "band": {
+      "label": "Dalğa uzunluğu zolağı",
+      "none": "Detektorun bütün diapazonu",
+      "h2o": "H₂O udulması",
+      "k": "K zolağı",
+      "ch4": "CH₄ (metan)",
+      "co": "CO / Y-cırtdan zirvəsi",
+      "help": "SPHEREx filtrləri hər detektor boyunca dalğa uzunluğunu dəyişir, ona görə hər ekspozisiya hədəfi fərqli dalğa uzunluğunda görür. Zolaq yalnız hədəfdəki dalğa uzunluğu zolağın içində olan ekspozisiyaları saxlayır - məsələn, CH₄ soyuq qəhvəyi cırtdanları sönükləşdirir, CO/4.6 µm isə WISE 0855 kimi Y-cırtdanları ən parlaq göstərir."
+    }
+  },
+  "detect": {
+    "title": "Hərəkətli Obyekt Axtarışı (real SPHEREx məlumatı)",
+    "subtitle": "Real SPHEREx şəkillərində hərəkət edən obyektləri axtarın: bir müşahidə keçidi daxilində asteroid və kometlər, və ya keçidlər arasında böyük xüsusi hərəkəti olan yaxın ulduzlar və qəhvəyi cırtdanlar. Hər aşkarlama məlum obyektlərlə (JPL kiçik cisimlər bazası, Gaia DR3, CatWISE2020) müqayisə olunur və siz onu qiymətləndirə bilərsiniz.",
+    "search": {
+      "asteroids": "Asteroidlər və kometlər",
+      "proper_motion": "Xüsusi hərəkət (ulduzlar, qəhvəyi cırtdanlar)"
+    },
+    "searchHelp": {
+      "asteroids": "Bir müşahidə keçidinin ayrı ekspozisiyalarından istifadə edir. Yalnız bir ziyarətdə görünən obyektlər sabit səmanı çıxmaqla tapılır.",
+      "proper_motion": "Hər keçid üçün bir dərin toplanmış şəkil (≈6 ay ara ilə). Keçidlər arasında yerini dəyişən mənbələri tapır."
+    },
+    "run": "Axtar",
+    "pass": "Müşahidə keçidi",
+    "passAuto": "Avtomatik (ən çox ekspozisiya)",
+    "maxFrames": "Yüklənəcək ekspozisiya",
+    "threshold": "Aşkarlama həddi",
+    "loading": "Ekspozisiyalar yüklənir və axtarılır… {{seconds}} san",
+    "loadingHint": "Yeni sahə 1–3 dəqiqə çəkir (IRSA yükləməsi + JPL yoxlaması). Təkrar axtarış xeyli sürətlidir.",
+    "howTitle": "Axtarış necə işləyir",
+    "how1": "Sahə (obyekt adı və ya koordinat) və axtarış növünü seçin, ya da nümunəni sınayın.",
+    "how2": "OrbitScope real SPHEREx ekspozisiyalarını yükləyir, üst-üstə düzür və hər detektor üçün sabit səma şablonu qurur.",
+    "how3": "Şablonda olmayan qalıq mənbələr ekspozisiyalar arasında birləşdirilir və hərəkəti hesablanır.",
+    "how4": "Aşkarlamalar məlum asteroid/kometlərlə (JPL) və ya ulduzlarla (Gaia, CatWISE) müqayisə olunur. Uyğunluğu olmayan hərəkətli mənbələr yeni namizədlərdir — onları qiymətləndirin.",
+    "disclaimer": "Namizədlər kəşf deyil. Real obyektlər əlavə müşahidələrlə təsdiqlənməli və müvafiq qurumlara (məs. Minor Planet Center) bildirilməlidir.",
+    "stats": {
+      "frames": "Axtarılan kadrlar",
+      "detections": "Qalıq aşkarlamalar",
+      "single": "Tək kadrlıq (rədd edildi)",
+      "candidates": "Namizədlər",
+      "knownRecovered": "Tapılan məlum obyektlər",
+      "brightRecovered": "Tapılan V≤18 məlum obyektlər",
+      "pm": "Xüsusi hərəkətli mənbələr",
+      "variable": "Dəyişkən mənbələr",
+      "noisy": "Atılmış səs-küylü kadrlar",
+      "measured": "Ölçülən mənbələr",
+      "astrometry": "Astrometrik dəqiqlik"
+    },
+    "showKnown": "Məlum asteroid/kometlər (JPL)",
+    "showWeak": "Zəif / qalıq aşkarlamaları göstər",
+    "candidates": "Namizədlər",
+    "none": "Bu sahədə həddən yuxarı namizəd yoxdur.",
+    "col": {
+      "class": "Sinif",
+      "match": "Uyğunluq",
+      "n": "Aşk.",
+      "rate": "Sürət",
+      "review": "Qiymət"
+    },
+    "score": "bal",
+    "fitRms": "Trek uyğunlaşma RMS",
+    "visits": "Birləşdirilmiş ziyarətlər",
+    "known": "Sahədəki məlum obyektlər",
+    "noKnown": "JPL bu vaxtlarda bu sahədə məlum asteroid və ya kometə rast gəlmir (V ≤ 21).",
+    "knownNote": "Mövqelər NASA/JPL SB Ident-dəndir (geosentrik). ✓ = axtarış tərəfindən tapılıb. V≈18-dən zəif obyektlər adətən SPHEREx-in tək ekspozisiya həssaslığından aşağıdır.",
+    "saved": "Saxlanmış namizədlər",
+    "noSaved": "Hələ saxlanmış namizəd yoxdur.",
+    "all": "Hamısı",
+    "review": {
+      "real": "Real",
+      "artifact": "Artefakt",
+      "unsure": "Əmin deyiləm",
+      "unreviewed": "Baxılmayıb"
+    },
+    "classes": {
+      "unknown_mover": "Yeni hərəkətli?",
+      "known_sso": "Məlum asteroid",
+      "moving_object": "Hərəkətli",
+      "pm_candidate": "Yeni XH mənbəyi?",
+      "known_pm_star": "Məlum XH ulduzu",
+      "pm_unconfirmed": "Zəif XH uyğunluğu",
+      "variable": "Dəyişkən",
+      "variable_or_residual": "Ulduz qalığı",
+      "low_confidence": "Aşağı etibar",
+      "stationary_transient": "Stasionar keçici",
+      "target_measurement": "Hədəf ölçüldü"
+    },
+    "explain": {
+      "unknown_mover": "Bir ziyarətin bir neçə ekspozisiyasında görünən, sabit səmada olmayan və heç bir məlum asteroid/kometə uyğun gəlməyən mənbə. Real kimi işarələməzdən əvvəl Blink-də yoxlayın.",
+      "known_sso": "JPL-in məlum asteroid və ya kometinin proqnoz mövqeyinə uyğun gəlir.",
+      "pm_candidate": "Keçidlər arasında yerini dəyişib, lakin burada uyğun hərəkətli Gaia/CatWISE ulduzu tapılmadı. Yeni yaxın qəhvəyi cırtdan ola bilər — və ya artefakt.",
+      "known_pm_star": "Keçidlər arasında yerini dəyişib və əhəmiyyətli xüsusi hərəkəti olan məlum ulduza uyğundur.",
+      "pm_unconfirmed": "Keçidlər arasında yerini dəyişib, lakin uyğun kataloq ulduzunun xüsusi hərəkəti azdır — ehtimal ki, qalıqdır.",
+      "variable": "Sabit mövqedə parlaqlıq dəyişib: dəyişkən ulduz və ya artefakt.",
+      "variable_or_residual": "Parlaq ulduzun üzərində qalıq; adətən hərəkət deyil, SPHEREx-in dalğa uzunluğundan asılı parlaqlığından yaranır.",
+      "low_confidence": "Aşkarlamalar düz xətli hərəkətə yaxşı uyğun gəlmir.",
+      "stationary_transient": "Yalnız bəzi ekspozisiyalarda görünür, lakin SABİT mövqedədir (digər ziyarətlərdə təkrarlanır və ya ziyarətlər arasında hərəkət etməyib). Günəş sistemi obyektləri həmişə hərəkət edir, buna görə bu dəyişkən mənbə, detektor qalıq izi (persistence) və ya digər artefaktdır.",
+      "target_measurement": "Sorğu edilən hədəfin özü: kor axtarış üçün çox sönük olsa belə, hər keçiddə ölçülür. Hərəkəti aşağıda kataloqdakı xüsusi hərəkətlə müqayisə olunur."
+    },
+    "recurrence": "Eyni nöqtədə təkrarlanma",
+    "measuredPm": "Ölçülən xüsusi hərəkət",
+    "significance": "Yerdəyişmənin əhəmiyyəti",
+    "fluxRatio": "Parlaqlıq dəyişməsi (maks/min)",
+    "targetCheck": {
+      "title": "Hədəfin hərəkətinin yoxlanışı",
+      "measured": "Ölçülən",
+      "expected": "Kataloq",
+      "significance": "Əhəmiyyət",
+      "baseline": "Zaman bazası",
+      "confirmed": "Hərəkət təsdiqləndi: ≥3σ ilə aşkarlandı və kataloqla uyğundur.",
+      "agreesWeak": "Kataloqla uyğundur, amma 3σ-dan aşağıdır — yeni keçidlər nəticəni dəqiqləşdirəcək.",
+      "disagrees": "Ölçülən hərəkət kataloq dəyəri ilə uyğun gəlmir.",
+      "noCatalog": "Müqayisə üçün kataloqda xüsusi hərəkət yoxdur."
+    },
+    "rejected": "Hərəkətli obyekt sayılmadı, çünki",
+    "reject": {
+      "no_steady_motion": "nöqtələr bir yerin ətrafında titrəyir, sabit hərəkət etmir",
+      "scatter": "mövqelər ölçmə xətasından çox səpələnir",
+      "flux_jump": "parlaqlıq ekspozisiyalar arasında 3 dəfədən çox dəyişir",
+      "missing_in_visit": "parlaq mənbə öz vizitinin əksər ekspozisiyalarında yoxdur",
+      "edge": "şəklin kənarına çox yaxındır"
+    },
+    "reviewTokenPrompt": "Bu serverdə qiymətləndirməni saxlamaq üçün komandanın review tokeni lazımdır. Daxil edin:"
+  },
+  "jobs": {
+    "stage": {
+      "queued": "Növbədə gözləyir…",
+      "starting": "Başlayır…",
+      "coverage": "SPHEREx ekspozisiyaları axtarılır (IRSA)…",
+      "download": "Ekspozisiyalar yüklənir",
+      "assemble": "Şəkillər üst-üstə düzülür və toplanır…",
+      "measure": "Ölçülür…",
+      "search": "Hərəkətli mənbələr axtarılır…",
+      "catalogs": "Məlum obyektlər yoxlanılır (JPL / Gaia / CatWISE)…",
+      "save": "Namizədlər saxlanılır…",
+      "done": "Hazırdır"
+    },
+    "queued": "Başqa axtarışlar işləyir; bu, boş yer açılan kimi başlayacaq.",
+    "cancel": "Ləğv et",
+    "cancelled": "Ləğv edildi."
+  },
+  "catalogLive": {
+    "subtitle": "NASA/JPL-dən canlı məlumat: Kiçik Cisimlər Bazası (orbitlər, fiziki məlumat, yaxınlaşmalar), Horizons (cari mövqe və efemerid) və SB Ident (istənilən səma sahəsindəki məlum obyektlər). Bu səhifədə heç nə simulyasiya deyil.",
+    "placeholder": "Ad, nömrə və ya işarə: Ceres, 433, 2004 MN4, 1P…",
+    "popular": "Məşhur cisimlər:",
+    "matches": "{{n}} obyekt uyğun gəlir - birini seçin:",
+    "kind": {
+      "asteroid": "Asteroid",
+      "comet": "Kometa"
+    },
+    "designation": "İşarə",
+    "moid": "Yer ilə minimal orbit məsafəsi (MOID)",
+    "tisserand": "Tisserand parametri (Yupiter)",
+    "rotation": "Fırlanma dövrü",
+    "spectral": "Spektral sinif",
+    "orbitQuality": "Orbitin keyfiyyəti",
+    "conditionCode": "Qeyri-müəyyənlik (şərt kodu, 0 = ən yaxşı)",
+    "observations": "İstifadə olunan müşahidələr",
+    "arc": "Müşahidə aralığı",
+    "ephemTitle": "İndi haradadır? (JPL Horizons)",
+    "ephemNote": "Növbəti 7 gün üçün geosentrik astrometrik mövqe.",
+    "now": "İndi",
+    "mag": "ulduz ölçüsü",
+    "fromEarth": "Yerdən",
+    "elongation": "Elonqasiya",
+    "approaches": "Yaxınlaşmalar (JPL siyahısında {{n}})",
+    "date": "Tarix (TDB)",
+    "body": "Cisim",
+    "distance": "Məsafə",
+    "fieldTitle": "Hansı məlum asteroid/kometlər sahədə idi?",
+    "fieldNote": "JPL-dən soruşun: verilmiş UTC vaxtında səma sahəsində hansı məlum kiçik cisimlər var idi - məs. SPHEREx ekspozisiyasının vaxtında. Nümunə OrbitScope-un 626 Notburga-nı tapdığı sahədir.",
+    "radius": "Radius (°)",
+    "timeUtc": "Vaxt (UTC)",
+    "fieldSlow": "JPL SB Ident bütün məlum orbitləri hesablayır - bu ~20 saniyə çəkir.",
+    "fieldNone": "Bu vaxtda bu sahədə V=21-dən parlaq məlum asteroid və ya kometa yoxdur.",
+    "object": "Obyekt",
+    "sep": "Məsafə",
+    "details": "Ətraflı",
+    "toDetection": "Bu sahəni real SPHEREx ekspozisiyalarında axtarın:"
+  },
+  "planetxLive": {
+    "subtitle": "Doqquzuncu Planet hipotezi NASA/JPL-in canlı orbitləri üzərində yoxlanılır. Bu səhifədəki klaster statistikası OrbitScope tərəfindən hesablanır; sübut kartları və proqnoz parametrləri ədəbiyyat dəyərləridir.",
+    "testTitle": "Orbitlərin klasterləşməsi realdırmı? (canlı JPL orbitləri)",
+    "testIntro": "JPL Kiçik Cisimlər Bazasındakı bütün uzaq, ayrılmış TNO-lar (a ≥ 150 AU, q ≥ 30 AU, orbiti yaxşı müəyyən olunmuş) indi canlı gətirilir. Rayleigh testi onların orbital bucaqlarının təsadüfdən artıq bir istiqamətə yönəlib-yönəlmədiyini yoxlayır.",
+    "loading": "Orbitlər JPL-dən gətirilir…",
+    "angle": {
+      "varpi": "Perihelinin uzunluğu",
+      "node": "Yüksələn düyünün uzunluğu",
+      "argperi": "Perihelinin arqumenti"
+    },
+    "mean": "orta",
+    "verdict": {
+      "strong": "Əhəmiyyətli klasterləşmə (p < 0.01)",
+      "weak": "Zəif sübut (p < 0.05)",
+      "none": "Təsadüfi paylanmaya uyğundur"
+    },
+    "periPlot": "Perihelin istiqamətləri (q·cos ϖ, q·sin ϖ) - qırıq xətt: orta istiqamət",
+    "periNote": "Orbitlər təsadüfi yönəlsəydi, nöqtələr Günəşin ətrafında bərabər paylanardı. Onlar ϖ ≈ {{mean}}° ətrafında toplanır.",
+    "aqPlot": "Böyük yarımox və perihelin məsafəsi",
+    "caveatTitle": "Diqqət:",
+    "caveat": "Müşahidə proqramları uzaq TNO-ları yalnız baxdıqları yerdə və vaxtda tapır, buna görə seçim effekti görünən klasterləşmə yarada bilər. Müşahidə meyllərini modelləşdirən təhlillər (Shankman və b. 2017; Napier və b. 2021) klasterləşməni Doqquzuncu Planetsiz də izah olunan hesab edir. Bu test seçim meylini düzəltmir.",
+    "table": "Orbit cədvəli ({{n}} obyekt; boz = orbiti zəif müəyyən olunub, istifadə edilmir)",
+    "missing": "{{n}} obyekt hazırda alına bilmədi",
+    "spherexTitle": "SPHEREx və ya OrbitScope Doqquzuncu Planeti tapa bilərmi?",
+    "spherexText": "Proqnozlaşdırılan Doqquzuncu Planet çox zəifdir (ehtimal V ≈ 20–24) və 300–500 AV məsafədə saatda yalnız ~0.3″ hərəkət edir (əsasən Yerin öz hərəkəti səbəbindən). OrbitScope-un asteroid axtarışı aşkarlamaları ~7 dəqiqəlik SPHEREx ziyarəti daxilində birləşdirir, buna görə belə yavaş obyekt sabit görünür və tapılmaz; bunun üçün xüsusi çoxgünlük axtarış lazımdır. Bu, hazırkı alətin dürüst məhdudiyyətidir.",
+    "literature": "Ədəbiyyat xülasəsi - OrbitScope tərəfindən ölçülməyib.",
+    "strength": {
+      "strong": "güclü",
+      "moderate": "orta",
+      "suggestive": "ehtimal"
+    },
+    "predSource": "Brown & Batygin (2021), AJ 162:219 - ədəbiyyat dəyərləri, burada ölçülməyib.",
+    "pred": {
+      "mass": "Kütlə",
+      "a": "Böyük yarımox",
+      "q": "Perihelin məsafəsi",
+      "i": "Meyl",
+      "period": "Orbital dövr"
+    },
+    "compareTitle": "Nəticə hansı obyektlərin seçilməsindən asılıdırmı?",
+    "sample": "Nümunə",
+    "sampleComplete": "Tam: JPL-dəki bütün obyektlər, orbit keyfiyyəti ≤ {{cc}}",
+    "sampleLiterature": "Ədəbiyyat: Doqquzuncu Planet məqalələrində müzakirə olunan obyektlər",
+    "compareNote": "Hər iki nümunə JPL-dən canlı gətirilir. Əl ilə seçilmiş ədəbiyyat nümunəsi tam, obyektiv seçilmiş nümunədən xeyli güclü klasterləşir — obyekt seçiminin Doqquzuncu Planet sübutuna təsirini birbaşa göstərir.",
+    "periLegend": "Narıncı: ədəbiyyat nümunəsinin obyektləri.",
+    "ccHelp": "JPL orbit vəziyyət kodu: 0 = ən dəqiq, 9 = ən qeyri-müəyyən. 5-dən yuxarı olanlar (boz) istifadə olunmur.",
+    "litCol": "Ədəb."
+  },
+  "analysisLive": {
+    "measurement": "Ölçmə",
+    "epoch": "İstinad epoxası",
+    "detections": "Aşkarlamalar",
+    "detectors": "detektor",
+    "review": "Sizin qiymətiniz",
+    "notePlaceholder": "Qeyd (məs. 'Blink-də açıq-aydın hərəkət edir, ulduz üzərində deyil')",
+    "noteHint": "Qeyd qiymət statusu ilə birlikdə saxlanılır.",
+    "astrometry": "Astrometriya (hər ekspozisiya üçün bir sətir)",
+    "onStar": "Ulduz üzərində",
+    "open": "Ətraflı"
+  },
+  "dash": {
+    "title": "Səma Tədqiqatçısı",
+    "subtitle": "Bu səhifədəki hər şey canlıdır: beş sınaq hədəfi, axtardığınız sahələr və real SPHEREx məlumatında tapdığınız namizədlər. Xəritədəki markerə klikləyin.",
+    "irsa": "NASA/IPAC IRSA",
+    "online": "Onlayn",
+    "offline": "Əlçatmaz",
+    "cache": "Keşdəki SPHEREx ekspozisiyaları",
+    "cacheDetail": "{{limit}} MB-dan {{mb}} MB",
+    "searches": "Saxlanmış axtarışlar",
+    "running": "hazırda {{n}} işləyir",
+    "recentOnly": "sonuncular xəritədə göstərilir",
+    "candidates": "Saxlanmış namizədlər",
+    "reviewed": "{{n}} qiymətləndirilib",
+    "legend": {
+      "targets": "sınaq hədəfləri",
+      "candidates": "namizədləriniz",
+      "searches": "axtarılan sahələr",
+      "ecliptic": "ekliptika (asteroidlər)",
+      "galaxy": "Süd Yolu müstəvisi"
+    },
+    "pick": "Xəritədəki markerə klikləyin.",
+    "challengeTarget": "Sınaq hədəfi",
+    "search": "Axtarış",
+    "runSummary": "{{frames}} kadrdan {{n}} namizəd",
+    "reopen": "Bu axtarışı aç",
+    "byClass": "Siniflərə görə namizədlər",
+    "noCandidates": "Hələ namizəd yoxdur - axtarış başladın:",
+    "recent": "Son axtarışlar",
+    "noRuns": "Hələ axtarış yoxdur.",
+    "mission": "SPHEREx missiyası",
+    "fact1": "11 mart 2025-də buraxılıb; bütün səmanı təxminən hər 6 aydan bir xəritələyir.",
+    "fact2": "102 spektral kanal, 0.75–5.0 µm (xətti dəyişən filtrli 6 detektor).",
+    "fact3": "6.2″ piksel, 3.5° × 11.3° baxış sahəsi.",
+    "fact4": "İctimai Quick Release şəkilləri NASA/IPAC IRSA-dadır - OrbitScope onlardan birbaşa istifadə edir."
+  },
+  "cmp": {
+    "subtitle": "Eyni sahənin iki real SPHEREx keçidini yan-yana qoyun (eyni kontrastla), bir-birindən çıxın, blink edin və ya üst-üstə qoyun.",
+    "intro": "Obyekt və ya koordinat seçin. OrbitScope həmin sahənin hər SPHEREx keçidini toplayır və istənilən ikisini müqayisə etməyə imkan verir.",
+    "epochA": "Keçid A",
+    "epochB": "Keçid B",
+    "mode": {
+      "side": "Yan-yana",
+      "difference": "Fərq",
+      "blink": "Blink",
+      "overlay": "Üst-üstə"
+    },
+    "baseline": "A ilə B arasında vaxt: {{days}} gün",
+    "diffHelp": "Qırmızı = B-də daha parlaq, mavi = A-da daha parlaq. Hərəkət edən ulduz mavi/qırmızı cüt, dəyişkən ulduz isə tək rəng buraxır."
+  }
+}

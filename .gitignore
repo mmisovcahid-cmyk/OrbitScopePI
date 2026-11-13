@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+backend/.env
+
+# Node / build
+node_modules/
+frontend/dist/
+
+# Worktrees / local tooling
+.claude/worktrees/
+
+# SPHEREx cutout / coverage cache
+backend/cache/
+
+# Candidate database
+backend/data/

@@ -1,0 +1,822 @@
+{
+  "app": {
+    "title": "OrbitScope",
+    "subtitle": "SPHEREx Monitoring Platform",
+    "description": "NASA SPHEREx astronomical survey monitoring and moving object detection platform"
+  },
+  "nav": {
+    "blink": "SPHEREx Blink",
+    "dashboard": "Sky Explorer",
+    "detection": "Detection",
+    "analysis": "Analysis",
+    "comparison": "Comparison",
+    "planetx": "Planet X",
+    "catalog": "Catalog",
+    "about": "About",
+    "settings": "Settings",
+    "language": "Language",
+    "collapse": "Collapse Sidebar"
+  },
+  "dashboard": {
+    "title": "Sky Explorer Dashboard",
+    "subtitle": "Real-time monitoring of SPHEREx survey observations and detections",
+    "stats": {
+      "observations": "Total Observations",
+      "candidates": "Detection Candidates",
+      "knownObjects": "Known Objects",
+      "regions": "Sky Regions",
+      "activePipelines": "Active Pipelines",
+      "dataSources": "Data Sources"
+    },
+    "recentDetections": "Recent Detections",
+    "observationTimeline": "Observation Timeline",
+    "skyMap": "Interactive Sky Map",
+    "noData": "No observation data available",
+    "lastUpdated": "Last Updated"
+  },
+  "detection": {
+    "title": "Moving Object Detection",
+    "subtitle": "Detect moving objects by comparing multi-epoch SPHEREx observations",
+    "regionSelector": {
+      "title": "Region Selection",
+      "ra": "Right Ascension (°)",
+      "dec": "Declination (°)",
+      "radius": "Search Radius (arcmin)",
+      "search": "Search Region",
+      "raHelp": "Range: 0° to 360°",
+      "decHelp": "Range: -90° to +90°",
+      "radiusHelp": "Recommended: 5-30 arcmin"
+    },
+    "observations": {
+      "title": "Available Observations",
+      "select": "Select observations for comparison",
+      "epoch": "Epoch",
+      "band": "Band",
+      "quality": "Quality",
+      "sources": "Sources",
+      "noObservations": "No observations found for this region",
+      "selected": "selected"
+    },
+    "pipeline": {
+      "title": "Detection Pipeline",
+      "run": "Run Detection Pipeline",
+      "running": "Pipeline Running...",
+      "complete": "Pipeline Complete",
+      "failed": "Pipeline Failed",
+      "stages": {
+        "alignment": "Image Alignment",
+        "subtraction": "Image Subtraction",
+        "sourceExtraction": "Source Extraction",
+        "crossMatch": "Cross-Match Catalog",
+        "classification": "Classification"
+      },
+      "selectTwo": "Select exactly 2 observations to run the pipeline",
+      "processing": "Processing..."
+    },
+    "results": {
+      "title": "Detection Results",
+      "candidates": "Candidates Found",
+      "known": "Known Objects",
+      "artifacts": "Probable Artifacts",
+      "noResults": "No detection results available. Run the pipeline to detect moving objects.",
+      "viewDetails": "View Details",
+      "export": "Export Results"
+    }
+  },
+  "analysis": {
+    "title": "Candidate Analysis",
+    "subtitle": "Detailed analysis of detection candidate",
+    "header": {
+      "candidate": "Candidate",
+      "detectedOn": "Detected On",
+      "confidence": "Confidence",
+      "status": "Status"
+    },
+    "measurements": {
+      "title": "Detection Measurements",
+      "displacement": "Displacement",
+      "positionAngle": "Position Angle",
+      "snr": "Signal-to-Noise Ratio",
+      "fluxRatio": "Flux Ratio",
+      "magnitude": "Estimated Magnitude",
+      "velocity": "Apparent Velocity",
+      "timeInterval": "Time Interval",
+      "arcsec": "arcsec",
+      "arcsecPerDay": "arcsec/day",
+      "degrees": "degrees",
+      "days": "days"
+    },
+    "images": {
+      "title": "Image Cutouts",
+      "observation1": "Observation 1 (Epoch 1)",
+      "observation2": "Observation 2 (Epoch 2)",
+      "difference": "Difference Image",
+      "noImage": "No image available"
+    },
+    "crossMatch": {
+      "title": "Cross-Match Results",
+      "matchFound": "Match Found",
+      "noMatch": "No catalog match found within search radius",
+      "objectName": "Object Name",
+      "objectId": "Object ID",
+      "separation": "Angular Separation",
+      "objectType": "Object Type",
+      "searchRadius": "Search Radius"
+    },
+    "classification": {
+      "title": "Classification",
+      "reason": "Classification Reasoning",
+      "confidence": "Classification Confidence",
+      "status": "Assigned Status"
+    },
+    "provenance": {
+      "title": "Data Provenance",
+      "source": "Data Source",
+      "pipeline": "Pipeline Version",
+      "simulated": "Simulated Data",
+      "quality": "Data Quality",
+      "calibration": "Calibration Status",
+      "notes": "Processing Notes",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "notFound": "Candidate not found"
+  },
+  "comparison": {
+    "title": "Observation Comparison",
+    "subtitle": "Compare multi-epoch observations to identify changes",
+    "controls": {
+      "observation1": "Observation 1",
+      "observation2": "Observation 2",
+      "mode": "Display Mode",
+      "sideBySide": "Side by Side",
+      "overlay": "Overlay",
+      "blink": "Blink",
+      "difference": "Difference",
+      "blinkSpeed": "Blink Speed",
+      "opacity": "Overlay Opacity",
+      "syncZoom": "Sync Zoom",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "resetView": "Reset View"
+    },
+    "info": {
+      "timeInterval": "Time Interval",
+      "epoch1": "Epoch 1",
+      "epoch2": "Epoch 2",
+      "changes": "Detected Changes",
+      "noChanges": "No significant changes detected"
+    },
+    "selectObservations": "Select two observations to compare"
+  },
+  "planetx": {
+    "title": "Planet X Research",
+    "subtitle": "Exploring evidence for a hypothetical ninth planet in the outer solar system",
+    "disclaimer": "Planet Nine has not been directly confirmed. The evidence presented here represents current theoretical predictions and observational anomalies that suggest its possible existence.",
+    "overview": {
+      "title": "Hypothesis Overview",
+      "description": "The Planet Nine hypothesis proposes the existence of a large, undiscovered planet in the distant outer Solar System. This hypothetical planet could explain several observed anomalies in the orbits of distant trans-Neptunian objects (TNOs)."
+    },
+    "evidence": {
+      "title": "Supporting Evidence",
+      "orbitalClustering": {
+        "title": "Orbital Clustering",
+        "description": "Several distant TNOs share similar orbital elements (argument of perihelion, longitude of ascending node), suggesting gravitational influence from an unseen massive body."
+      },
+      "perihelionDetachment": {
+        "title": "Perihelion Detachment",
+        "description": "Objects like Sedna and 2012 VP113 have perihelia far beyond Neptune's influence, which could be explained by a distant massive perturber."
+      },
+      "solarObliquity": {
+        "title": "Solar Obliquity",
+        "description": "The ~6° tilt of the Sun's spin axis relative to the planetary orbital plane could be induced by the gravitational torque of a distant massive planet."
+      },
+      "retrogradeOrbits": {
+        "title": "Retrograde TNO Orbits",
+        "description": "The existence of high-inclination and retrograde trans-Neptunian objects can be explained by secular interactions with Planet Nine."
+      },
+      "kuiperCliff": {
+        "title": "Kuiper Cliff",
+        "description": "The apparent edge of the Kuiper Belt near 50 AU could be sculpted by the gravitational influence of a distant massive planet."
+      }
+    },
+    "predictions": {
+      "title": "Predicted Parameters",
+      "mass": "Mass",
+      "semiMajorAxis": "Semi-Major Axis",
+      "eccentricity": "Eccentricity",
+      "inclination": "Inclination",
+      "orbitalPeriod": "Orbital Period",
+      "distance": "Current Distance",
+      "magnitude": "Predicted Magnitude",
+      "parameter": "Parameter",
+      "value": "Value",
+      "uncertainty": "Uncertainty",
+      "source": "Source"
+    },
+    "tno": {
+      "title": "TNO Orbital Distribution",
+      "subtitle": "Orbital elements of distant trans-Neptunian objects showing potential clustering"
+    },
+    "references": {
+      "title": "Key References"
+    }
+  },
+  "catalog": {
+    "title": "JPL Catalog Browser",
+    "subtitle": "Browse the JPL Small-Body Database for known solar system objects",
+    "search": {
+      "placeholder": "Search by name or designation...",
+      "objectType": "Object Type",
+      "all": "All Types",
+      "asteroid": "Asteroids",
+      "comet": "Comets",
+      "tno": "Trans-Neptunian Objects",
+      "neo": "Near-Earth Objects Only",
+      "pha": "Potentially Hazardous Only",
+      "search": "Search",
+      "clear": "Clear"
+    },
+    "results": {
+      "title": "Search Results",
+      "noResults": "No objects found matching your search criteria",
+      "showing": "Showing",
+      "of": "of",
+      "objects": "objects"
+    },
+    "detail": {
+      "title": "Object Details",
+      "orbital": "Orbital Elements",
+      "physical": "Physical Parameters",
+      "semiMajorAxis": "Semi-Major Axis",
+      "eccentricity": "Eccentricity",
+      "inclination": "Inclination",
+      "lonAscNode": "Longitude of Ascending Node",
+      "argPerihelion": "Argument of Perihelion",
+      "meanAnomaly": "Mean Anomaly",
+      "orbitalPeriod": "Orbital Period",
+      "perihelion": "Perihelion Distance",
+      "aphelion": "Aphelion Distance",
+      "absoluteMag": "Absolute Magnitude",
+      "diameter": "Diameter",
+      "albedo": "Albedo",
+      "isNEO": "Near-Earth Object",
+      "isPHA": "Potentially Hazardous",
+      "lastObservation": "Last Observation",
+      "dataSource": "Data Source",
+      "au": "AU",
+      "km": "km",
+      "years": "years",
+      "degrees": "°",
+      "yes": "Yes",
+      "no": "No",
+      "selectObject": "Select an object to view details"
+    }
+  },
+  "about": {
+    "title": "About OrbitScope",
+    "subtitle": "Scientific methodology, data sources, and platform documentation",
+    "overview": {
+      "title": "Platform Overview",
+      "description": "OrbitScope is a public web tool for exploring how the sky changes in real NASA SPHEREx images. Enter an object name or coordinates and it plays every SPHEREx exposure of that spot as a short, aligned movie; it can search those images for moving objects and check every detection against NASA/JPL, Gaia and CatWISE catalogs.",
+      "mission": "Goal: make SPHEREx's time-domain data easy to look at for everyone, so that moving and changing objects - asteroids, comets, nearby stars and brown dwarfs - can be spotted and checked by eye."
+    },
+    "methodology": {
+      "title": "Detection Methodology",
+      "step1Title": "Real SPHEREx data",
+      "step1Desc": "Level-2 images are found with IRSA's TAP service (new public releases are picked up automatically), cut out around the target, zodiacal light and flagged pixels are removed.",
+      "step2Title": "Alignment and stacking",
+      "step2Desc": "Every exposure is reprojected onto one north-up grid (using the SIP-distorted WCS of each image); exposures of one survey pass are stacked by inverse variance.",
+      "step3Title": "Moving-object search",
+      "step3Desc": "Asteroids: a static-sky template per detector is subtracted and residuals are linked within SPHEREx's ~7-minute visits. Stars/brown dwarfs: sources are centroided in each pass and significant shifts are reported.",
+      "step4Title": "Cross-matching",
+      "step4Desc": "Detections are compared with known asteroids and comets from JPL SB Ident and with Gaia DR3 / CatWISE2020 stars, including their proper motions.",
+      "step5Title": "Review",
+      "step5Desc": "Candidates are classified (known object, new mover, stationary transient, variable) and stored; users mark them real / artifact and export the astrometry as CSV."
+    },
+    "dataSources": {
+      "title": "Data Sources",
+      "spherex": "NASA SPHEREx Level-2 spectral images (NASA/IPAC IRSA: TAP, datalink, IBE cutouts)",
+      "jpl": "NASA/JPL Small-Body Database, Horizons and SB Ident APIs",
+      "mpc": "CDS Sesame and NED name resolvers (object names to coordinates)",
+      "gaia": "ESA Gaia DR3 and CatWISE2020 (IRSA) reference catalogs",
+      "note": "All data shown in SPHEREx Blink, Sky Explorer, Detection, Comparison, Catalog and the Planet X clustering test is real and fetched live from these public services; none of them needs an API key. Literature values (Planet X evidence and predictions) are labelled as such."
+    },
+    "limitations": {
+      "title": "Limitations & Disclaimers",
+      "item1": "Single SPHEREx exposures reach about V≈17-18 for moving objects; fainter asteroids are usually not detected.",
+      "item2": "Very bright stars saturate SPHEREx's detectors and are excluded from photometry and astrometry.",
+      "item3": "The asteroid search links detections within one ~7-minute visit, so very slow movers (e.g. a distant Planet Nine) look static.",
+      "item4": "Candidates are not discoveries: they need independent confirmation and must be reported through the proper channels.",
+      "item5": "Planet X evidence is a published hypothesis; the clustering test here does not correct for survey selection bias."
+    },
+    "credits": {
+      "title": "Credits & References",
+      "spherexTeam": "NASA SPHEREx Mission Team",
+      "jplSSD": "JPL Solar System Dynamics Group",
+      "caltech": "California Institute of Technology",
+      "battygin": "Batygin & Brown (2016) - Evidence for a Distant Giant Planet",
+      "license": "Built for the NASA Space Apps Challenge for educational and research use. SPHEREx data courtesy of NASA/JPL-Caltech and NASA/IPAC IRSA."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "noData": "No data available",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": "Export",
+    "refresh": "Refresh",
+    "actions": "Actions",
+    "details": "Details",
+    "summary": "Summary",
+    "total": "Total",
+    "count": "Count",
+    "name": "Name",
+    "type": "Type",
+    "status": "Status",
+    "date": "Date",
+    "time": "Time",
+    "coordinates": "Coordinates",
+    "ra": "Right Ascension",
+    "dec": "Declination",
+    "magnitude": "Magnitude",
+    "simulated": "Simulated",
+    "real": "Real Data",
+    "confirmed": "Confirmed",
+    "unconfirmed": "Unconfirmed",
+    "page": "Page",
+    "of": "of",
+    "results": "results",
+    "language": {
+      "en": "English",
+      "az": "Azərbaycan"
+    },
+    "simulatedNotice": "This page runs on the simulated demo pipeline (labelled [SIMULATED]). For real SPHEREx images use"
+  },
+  "status": {
+    "known_object": "Known Object",
+    "candidate": "Candidate",
+    "unlikely_candidate": "Unlikely Candidate",
+    "probable_artifact": "Probable Artifact",
+    "needs_review": "Needs Review",
+    "pending": "Pending",
+    "running": "Running",
+    "completed": "Completed",
+    "failed": "Failed"
+  },
+  "errors": {
+    "networkError": "Unable to connect to the server. Please check your connection.",
+    "serverError": "Server error occurred. Please try again later.",
+    "notFound": "The requested resource was not found.",
+    "validationError": "Please check your input values.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "timeout": "Request timed out. Please try again.",
+    "rateLimited": "Too many requests. Please wait a moment.",
+    "invalidCoordinates": "Invalid coordinates: RA must be 0–360°, Dec −90…+90°.",
+    "pipelineError": "Detection pipeline encountered an error.",
+    "noObservationsSelected": "Please select observations before running the pipeline."
+  },
+  "tooltips": {
+    "ra": "Right Ascension in degrees (0° to 360°) or hours:minutes:seconds",
+    "dec": "Declination in degrees (-90° to +90°) or degrees:arcmin:arcsec",
+    "snr": "Signal-to-Noise Ratio — higher values indicate more reliable detections",
+    "displacement": "Angular separation between detections across epochs",
+    "fluxRatio": "Ratio of measured flux between the two epochs",
+    "magnitude": "Estimated apparent magnitude of the detected object",
+    "velocity": "Apparent angular velocity of the detected object",
+    "simulated": "This data is simulated for demonstration purposes",
+    "confidence": "Classification confidence score (0-1)",
+    "perihelion": "Closest approach distance to the Sun",
+    "aphelion": "Farthest distance from the Sun",
+    "neo": "Near-Earth Object: perihelion distance less than 1.3 AU",
+    "pha": "Potentially Hazardous Asteroid: absolute magnitude ≤ 22 and MOID ≤ 0.05 AU"
+  },
+  "blink": {
+    "title": "SPHEREx Time-Lapse Viewer",
+    "subtitle": "Enter a sky position or object name. OrbitScope fetches every real SPHEREx image of that spot from NASA/IPAC IRSA, aligns them and plays them as a short movie so moving and changing objects stand out.",
+    "realData": "REAL SPHEREx DATA",
+    "loading": "Downloading SPHEREx images from IRSA… {{seconds}} s",
+    "loadingShort": "Loading SPHEREx images…",
+    "loadingHint": "The first request for a new field can take 1–2 minutes. Repeated views are instant (cached).",
+    "search": {
+      "label": "Object name or coordinates",
+      "placeholder": "Barnard's Star · 08h55m10.831s -7d14m42.53s · 269.452 4.693",
+      "button": "Show",
+      "fov": "Field of view",
+      "detector": "Detector (wavelength)",
+      "allDetectors": "All detectors",
+      "mode": "Frames",
+      "modeEpoch": "One stacked image per survey pass",
+      "modeFrames": "Individual exposures",
+      "perEpoch": "Exposures stacked per pass",
+      "maxFrames": "Max. exposures",
+      "tryTargets": "Test targets:",
+      "modePass": "Individual exposures of one survey pass"
+    },
+    "errors": {
+      "empty": "Enter an object name or coordinates.",
+      "timeout": "The request took too long. IRSA may be busy; try again or choose a smaller field.",
+      "network": "Cannot reach the OrbitScope backend at {{url}}. Start it from the project's backend folder (python run.py) and make sure only one backend is running on port 8000."
+    },
+    "intro": {
+      "title": "How it works",
+      "step1": "Type an object name (e.g. Barnard's Star) or RA/Dec in decimal or sexagesimal form, or pick a test target.",
+      "step2": "OrbitScope finds every SPHEREx exposure covering that point, removes zodiacal light, masks flagged pixels and aligns all images north-up.",
+      "step3": "Play the sequence. Moving objects jump between frames; variable stars change brightness. Use Difference or Motion colour to make changes pop out.",
+      "note": "Data: NASA SPHEREx Level-2 images via NASA/IPAC IRSA. New public releases are picked up automatically. Links are shareable and embeddable."
+    },
+    "panels": {
+      "target": "Target",
+      "customPosition": "Custom position",
+      "properMotion": "Proper motion",
+      "resolver": "Position source",
+      "frame": "Frame {{n}} / {{total}}",
+      "date": "Date",
+      "exposures": "Stacked exposures",
+      "detectors": "Detectors",
+      "wavelength": "Wavelength",
+      "masked": "Flagged pixels",
+      "flags": "Quality flags in this cutout",
+      "sourceFiles": "Source FITS files ({{n}})",
+      "coverage": "SPHEREx coverage",
+      "coverageSummary": "{{frames}} exposures in {{epochs}} survey passes, {{from}} → {{to}}.",
+      "epoch": "Pass"
+    },
+    "share": {
+      "title": "Share & embed",
+      "copyLink": "Copy link",
+      "copyEmbed": "Copy embed code",
+      "copied": "Copied!",
+      "copyManual": "Copy this:"
+    },
+    "viewer": {
+      "aria": "SPHEREx image sequence. Space plays or pauses, arrow keys step through frames.",
+      "hoverHint": "Hover over the image for coordinates and pixel values. Space = play/pause, ← → = step.",
+      "prev": "Previous frame",
+      "next": "Next frame",
+      "playPause": "Play / pause",
+      "frame": "Frame",
+      "speed": "Speed",
+      "modes": {
+        "blink": "Blink",
+        "difference": "Difference",
+        "motion": "Motion colour",
+        "stack": "Stack"
+      },
+      "modeHelp": {
+        "blink": "Play the frames in time order.",
+        "difference": "Current frame minus the reference frame: red = brighter now, blue = fainter now. Static stars cancel out.",
+        "motion": "Reference frame in red, current frame in cyan. Static stars look white; moving objects show a red/cyan pair.",
+        "stack": "Average of all frames: fainter static sources become visible, moving ones smear out."
+      },
+      "reference": "Reference",
+      "stretch": "Stretch",
+      "colormap": "Colours",
+      "targetMarker": "Show predicted target position",
+      "maskOverlay": "Highlight flagged / saturated pixels",
+      "smooth": "Smooth pixels",
+      "black": "Black level",
+      "white": "White level",
+      "stackLabel": "Stack of {{n}} frames (deeper, static sources)"
+    },
+    "flagHelp": {
+      "OVERFLOW": "Detector saturated (bright source)",
+      "SUR_ERROR": "Sample-up-the-ramp fit problem",
+      "NONLINEAR": "Pixel in the non-linear regime",
+      "PERSIST": "Possible persistence from an earlier bright source",
+      "OUTLIER": "Outlier / cosmic-ray candidate (masked)",
+      "TRANSIENT": "Transient hit (masked)",
+      "HOT": "Hot pixel (masked)",
+      "NONFUNC": "Non-functional pixel (masked)",
+      "DICHROIC": "Dichroic artefact region"
+    },
+    "overlay": {
+      "title": "Catalog overlay",
+      "hint": "Markers move with each star's proper motion to the date of the frame. Solid circles: > 0.2″/yr.",
+      "magLimit": "Magnitude"
+    },
+    "phot": {
+      "title": "Spectrum & light curve",
+      "measureTarget": "Measure {{name}}",
+      "measurePick": "Measure clicked point",
+      "pickHint": "Click on the image first to choose a position.",
+      "picked": "Clicked point",
+      "explain": "SPHEREx uses linear variable filters, so every exposure sees a source at a slightly different wavelength. Measuring the same spot in many exposures gives a 0.75–5 µm spectrum and a light curve. First run takes 1–3 minutes.",
+      "loading": "Measuring in SPHEREx exposures… {{seconds}} s",
+      "summary": "{{good}} good of {{total}} measurements · aperture {{ap}}″",
+      "showFlagged": "show {{n}} flagged/saturated",
+      "noGood": "All measurements are flagged (usually the source is saturated — too bright for SPHEREx). Tick 'show flagged' to see them anyway.",
+      "spectrum": "Spectrum (flux vs wavelength)",
+      "lightCurve": "Light curve (flux vs time)",
+      "saturated": "saturated",
+      "flagged": "flagged pixels in aperture",
+      "lvfNote": "colour = detector"
+    },
+    "aladin": {
+      "title": "Sky context (Aladin Lite)",
+      "intro": "The same field in all-sky surveys (served by NASA/IPAC IRSA): optical (DSS2), near-infrared (2MASS) and 4.6 µm (AllWISE W2, where cold brown dwarfs are brightest). Blue box: the SPHEREx cutout; pink marker: the target position at the SPHEREx epoch.",
+      "loading": "Loading Aladin Lite from CDS…",
+      "error": "Aladin Lite (CDS) could not be loaded right now. Use the Aladin link above, or try again later.",
+      "credit": "Aladin Lite © CDS, Université de Strasbourg / CNRS. HiPS surveys DSS2, 2MASS, AllWISE via NASA/IPAC IRSA."
+    },
+    "band": {
+      "label": "Wavelength band",
+      "none": "Whole detector range",
+      "h2o": "H₂O absorption",
+      "k": "K band",
+      "ch4": "CH₄ (methane)",
+      "co": "CO / Y-dwarf peak",
+      "help": "SPHEREx's filters change wavelength across each detector, so every exposure sees the target at a different wavelength. A band keeps only exposures whose wavelength at the target lies inside it - e.g. CH₄ makes cold brown dwarfs fade, CO/4.6 µm makes Y dwarfs like WISE 0855 brightest."
+    }
+  },
+  "detect": {
+    "title": "Moving-Object Search (real SPHEREx data)",
+    "subtitle": "Search real SPHEREx images for objects that move: asteroids and comets within one survey pass, or nearby stars and brown dwarfs with large proper motion across passes. Every detection is checked against known objects (JPL Small-Body database, Gaia DR3, CatWISE2020) and can be reviewed by you.",
+    "search": {
+      "asteroids": "Asteroids & comets",
+      "proper_motion": "Proper motion (stars, brown dwarfs)"
+    },
+    "searchHelp": {
+      "asteroids": "Uses the individual exposures of one survey pass. Objects visible in only one visit are found by subtracting the static sky.",
+      "proper_motion": "Uses one deep stack per survey pass (≈6 months apart). Finds sources that shifted between passes."
+    },
+    "run": "Search",
+    "pass": "Survey pass",
+    "passAuto": "Auto (most exposures)",
+    "maxFrames": "Exposures to download",
+    "threshold": "Detection threshold",
+    "loading": "Downloading exposures and searching… {{seconds}} s",
+    "loadingHint": "A new field takes 1–3 minutes (IRSA download + JPL check). Repeating a search is much faster.",
+    "howTitle": "How the search works",
+    "how1": "Pick a field (object name or coordinates) and a search type, or try an example.",
+    "how2": "OrbitScope downloads the real SPHEREx exposures, aligns them and builds a static-sky template per detector.",
+    "how3": "Residual sources that are not in the template are linked across exposures; their motion is fitted.",
+    "how4": "Detections are compared with known asteroids/comets (JPL) or stars (Gaia, CatWISE). Unmatched movers are new candidates — please review them.",
+    "disclaimer": "Candidates are not discoveries. Real objects must be confirmed with additional observations and reported through the proper channels (e.g. the Minor Planet Center).",
+    "stats": {
+      "frames": "Frames searched",
+      "detections": "Residual detections",
+      "single": "Single-frame (rejected)",
+      "candidates": "Candidates",
+      "knownRecovered": "Known objects recovered",
+      "brightRecovered": "Known V≤18 recovered",
+      "pm": "Proper-motion sources",
+      "variable": "Variable sources",
+      "noisy": "Noisy frames skipped",
+      "measured": "Sources measured",
+      "astrometry": "Astrometric precision"
+    },
+    "showKnown": "Known asteroids/comets (JPL)",
+    "showWeak": "Show weak / residual detections",
+    "candidates": "Candidates",
+    "none": "No candidates above the threshold in this field.",
+    "col": {
+      "class": "Class",
+      "match": "Match",
+      "n": "Det.",
+      "rate": "Rate",
+      "review": "Review"
+    },
+    "score": "score",
+    "fitRms": "Track fit RMS",
+    "visits": "Visits linked",
+    "known": "Known objects in the field",
+    "noKnown": "JPL lists no known asteroids or comets in this field at these times (V ≤ 21).",
+    "knownNote": "Positions from NASA/JPL SB Ident (geocentric). ✓ = recovered by the search. Objects fainter than V≈18 are usually below SPHEREx single-exposure depth.",
+    "saved": "Saved candidates",
+    "noSaved": "No saved candidates yet.",
+    "all": "All",
+    "review": {
+      "real": "Real",
+      "artifact": "Artifact",
+      "unsure": "Unsure",
+      "unreviewed": "Unreviewed"
+    },
+    "classes": {
+      "unknown_mover": "New mover?",
+      "known_sso": "Known asteroid",
+      "moving_object": "Mover",
+      "pm_candidate": "New PM source?",
+      "known_pm_star": "Known PM star",
+      "pm_unconfirmed": "Low-PM match",
+      "variable": "Variable",
+      "variable_or_residual": "Star residual",
+      "low_confidence": "Low confidence",
+      "stationary_transient": "Stationary transient",
+      "target_measurement": "Target measured"
+    },
+    "explain": {
+      "unknown_mover": "A source seen in several exposures of one visit that is absent from the static sky and does not match any known asteroid or comet. Check it in Blink before marking it real.",
+      "known_sso": "Matches the predicted position of a known asteroid or comet from JPL.",
+      "pm_candidate": "Shifted between survey passes, but no Gaia/CatWISE star with matching motion was found here. Could be a new nearby brown dwarf — or an artifact.",
+      "known_pm_star": "Shifted between survey passes and matches a known star with significant proper motion.",
+      "pm_unconfirmed": "Shifted between passes, but the matching catalog star has little proper motion — likely a residual.",
+      "variable": "Brightness changed at a fixed position: a variable star or an artifact.",
+      "variable_or_residual": "Residual on top of a bright star; usually caused by SPHEREx's wavelength-dependent brightness, not motion.",
+      "low_confidence": "Detections do not fit a straight-line motion well.",
+      "stationary_transient": "Appears in some exposures only, but at a FIXED position (it recurs in other visits or did not move between visits). Solar-system objects always move, so this is a variable source, detector persistence or another artifact.",
+      "target_measurement": "The requested target itself, measured in every survey pass even when it is too faint for the blind search. Its motion is compared with the catalog proper motion below."
+    },
+    "recurrence": "Same-spot recurrences",
+    "measuredPm": "Measured proper motion",
+    "significance": "Shift significance",
+    "fluxRatio": "Brightness change (max/min)",
+    "targetCheck": {
+      "title": "Target motion check",
+      "measured": "Measured",
+      "expected": "Catalog",
+      "significance": "Significance",
+      "baseline": "Baseline",
+      "confirmed": "Motion confirmed: detected at ≥3σ and agrees with the catalog.",
+      "agreesWeak": "Agrees with the catalog, but below 3σ — more survey passes will sharpen it.",
+      "disagrees": "Measured motion does not agree with the catalog value.",
+      "noCatalog": "No catalog proper motion for comparison."
+    },
+    "rejected": "Not counted as a mover because",
+    "reject": {
+      "no_steady_motion": "points scatter around one spot instead of moving steadily",
+      "scatter": "positions scatter more than their measurement error",
+      "flux_jump": "brightness jumps by more than 3× between exposures",
+      "missing_in_visit": "a bright source missing from most exposures of its visit",
+      "edge": "too close to the image edge"
+    },
+    "reviewTokenPrompt": "This server needs the team's review token to save reviews. Enter it:"
+  },
+  "jobs": {
+    "stage": {
+      "queued": "Waiting in queue…",
+      "starting": "Starting…",
+      "coverage": "Finding SPHEREx exposures (IRSA)…",
+      "download": "Downloading exposures",
+      "assemble": "Aligning and stacking images…",
+      "measure": "Measuring…",
+      "search": "Searching for moving sources…",
+      "catalogs": "Checking known objects (JPL / Gaia / CatWISE)…",
+      "save": "Saving candidates…",
+      "done": "Done"
+    },
+    "queued": "Other searches are running; this one starts as soon as a slot is free.",
+    "cancel": "Cancel",
+    "cancelled": "Cancelled."
+  },
+  "catalogLive": {
+    "subtitle": "Live data from NASA/JPL: the Small-Body Database (orbits, physical data, close approaches), Horizons (current position and ephemeris) and SB Ident (known objects in any sky field). Nothing on this page is simulated.",
+    "placeholder": "Name, number or designation: Ceres, 433, 2004 MN4, 1P…",
+    "popular": "Popular:",
+    "matches": "{{n}} objects match - choose one:",
+    "kind": {
+      "asteroid": "Asteroid",
+      "comet": "Comet"
+    },
+    "designation": "Designation",
+    "moid": "Earth MOID",
+    "tisserand": "Tisserand parameter (Jupiter)",
+    "rotation": "Rotation period",
+    "spectral": "Spectral type",
+    "orbitQuality": "Orbit quality",
+    "conditionCode": "Uncertainty (condition code, 0 = best)",
+    "observations": "Observations used",
+    "arc": "Observed arc",
+    "ephemTitle": "Where is it now? (JPL Horizons)",
+    "ephemNote": "Geocentric astrometric position for the next 7 days.",
+    "now": "Now",
+    "mag": "mag",
+    "fromEarth": "from Earth",
+    "elongation": "Elongation",
+    "approaches": "Close approaches ({{n}} in JPL's list)",
+    "date": "Date (TDB)",
+    "body": "Body",
+    "distance": "Distance",
+    "fieldTitle": "Which known asteroids/comets were in a field?",
+    "fieldNote": "Ask JPL which known small bodies were inside a sky field at a given UTC time - e.g. the time of a SPHEREx exposure. The example is the field where OrbitScope recovered 626 Notburga.",
+    "radius": "Radius (°)",
+    "timeUtc": "Time (UTC)",
+    "fieldSlow": "JPL SB Ident integrates all known orbits - this takes ~20 seconds.",
+    "fieldNone": "No known asteroids or comets brighter than V=21 in this field at that time.",
+    "object": "Object",
+    "sep": "Offset",
+    "details": "Details",
+    "toDetection": "Search this field in real SPHEREx exposures:"
+  },
+  "planetxLive": {
+    "subtitle": "The Planet Nine hypothesis, tested on live orbits from NASA/JPL. The clustering statistics on this page are computed by OrbitScope; the evidence cards and predicted parameters are literature values.",
+    "testTitle": "Is the orbital clustering real? (live JPL orbits)",
+    "testIntro": "Every distant detached TNO in the JPL Small-Body Database (a ≥ 150 AU, q ≥ 30 AU, well-determined orbit) is fetched right now. The Rayleigh test asks whether their orbital angles point in a preferred direction more than chance would allow.",
+    "loading": "Fetching orbits from JPL…",
+    "angle": {
+      "varpi": "Longitude of perihelion",
+      "node": "Longitude of ascending node",
+      "argperi": "Argument of perihelion"
+    },
+    "mean": "mean",
+    "verdict": {
+      "strong": "Significant clustering (p < 0.01)",
+      "weak": "Weak evidence (p < 0.05)",
+      "none": "Consistent with random"
+    },
+    "periPlot": "Perihelion directions (q·cos ϖ, q·sin ϖ) - dashed line: mean direction",
+    "periNote": "If orbits were randomly oriented, the points would surround the Sun evenly. They bunch around ϖ ≈ {{mean}}°.",
+    "aqPlot": "Semi-major axis vs perihelion distance",
+    "caveatTitle": "Caveat:",
+    "caveat": "Surveys only find distant TNOs where and when they looked, so observational selection can create apparent clustering. Analyses that model survey biases (Shankman et al. 2017; Napier et al. 2021) find the clustering consistent with no Planet Nine. This test does not correct for selection bias.",
+    "table": "Orbit table ({{n}} objects; grey = poorly determined orbit, not used)",
+    "missing": "{{n}} object(s) could not be fetched right now",
+    "spherexTitle": "Could SPHEREx or OrbitScope find Planet Nine?",
+    "spherexText": "Predicted Planet Nine is very faint (likely V ≈ 20–24) and, at 300–500 AU, moves only ~0.3″ per hour, mostly from Earth's own motion. OrbitScope's asteroid search links detections inside a ~7-minute SPHEREx visit, so such a slow mover looks static and would not be detected; a dedicated multi-day search would be needed. This is an honest limitation of the current tool.",
+    "literature": "Literature summary - not measured by OrbitScope.",
+    "strength": {
+      "strong": "strong",
+      "moderate": "moderate",
+      "suggestive": "suggestive"
+    },
+    "predSource": "Brown & Batygin (2021), AJ 162:219 - literature values, not measured here.",
+    "pred": {
+      "mass": "Mass",
+      "a": "Semi-major axis",
+      "q": "Perihelion distance",
+      "i": "Inclination",
+      "period": "Orbital period"
+    },
+    "compareTitle": "Does the result depend on which objects you pick?",
+    "sample": "Sample",
+    "sampleComplete": "Complete: all JPL objects, orbit quality ≤ {{cc}}",
+    "sampleLiterature": "Literature: the objects discussed in Planet Nine papers",
+    "compareNote": "Both samples are fetched live from JPL. The hand-picked literature sample clusters much more strongly than the complete, objectively selected sample — a direct look at how object selection affects the Planet Nine evidence.",
+    "periLegend": "Orange: objects of the literature sample.",
+    "ccHelp": "JPL orbit condition code: 0 = best determined, 9 = most uncertain. Objects above 5 (grey) are not used.",
+    "litCol": "Lit."
+  },
+  "analysisLive": {
+    "measurement": "Measurement",
+    "epoch": "Reference epoch",
+    "detections": "Detections",
+    "detectors": "detector(s)",
+    "review": "Your review",
+    "notePlaceholder": "Note (e.g. 'clearly moves in Blink, not on a star')",
+    "noteHint": "The note is saved together with the review status.",
+    "astrometry": "Astrometry (one row per exposure)",
+    "onStar": "On star",
+    "open": "Details"
+  },
+  "dash": {
+    "title": "Sky Explorer",
+    "subtitle": "Everything on this page is live: the five challenge targets, the fields you searched and the candidates you found in real SPHEREx data. Click a marker on the map.",
+    "irsa": "NASA/IPAC IRSA",
+    "online": "Online",
+    "offline": "Unreachable",
+    "cache": "Cached SPHEREx exposures",
+    "cacheDetail": "{{mb}} MB of {{limit}} MB",
+    "searches": "Saved searches",
+    "running": "{{n}} running now",
+    "recentOnly": "latest shown on the map",
+    "candidates": "Saved candidates",
+    "reviewed": "{{n}} reviewed",
+    "legend": {
+      "targets": "challenge targets",
+      "candidates": "your candidates",
+      "searches": "searched fields",
+      "ecliptic": "ecliptic (asteroids)",
+      "galaxy": "Milky Way plane"
+    },
+    "pick": "Click a marker on the map.",
+    "challengeTarget": "Challenge target",
+    "search": "Search",
+    "runSummary": "{{n}} candidates from {{frames}} frames",
+    "reopen": "Open this search",
+    "byClass": "Candidates by class",
+    "noCandidates": "No candidates yet - run a search:",
+    "recent": "Recent searches",
+    "noRuns": "No searches yet.",
+    "mission": "SPHEREx mission",
+    "fact1": "Launched 11 March 2025; maps the whole sky every ~6 months.",
+    "fact2": "102 spectral channels, 0.75–5.0 µm (6 detector arrays with linear variable filters).",
+    "fact3": "6.2″ pixels, 3.5° × 11.3° field of view.",
+    "fact4": "Public Quick Release images at NASA/IPAC IRSA - used directly by OrbitScope."
+  },
+  "cmp": {
+    "subtitle": "Put two real SPHEREx survey passes of the same field next to each other (same stretch), subtract them, blink or overlay them.",
+    "intro": "Choose an object or coordinates. OrbitScope stacks each SPHEREx survey pass of that field and lets you compare any two of them.",
+    "epochA": "Pass A",
+    "epochB": "Pass B",
+    "mode": {
+      "side": "Side by side",
+      "difference": "Difference",
+      "blink": "Blink",
+      "overlay": "Overlay"
+    },
+    "baseline": "Time between A and B: {{days}} days",
+    "diffHelp": "Red = brighter in B, blue = brighter in A. A moving star leaves a blue/red pair; a variable star a single colour."
+  }
+}
