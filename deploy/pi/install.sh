@@ -49,7 +49,7 @@ fi
 # ----------------------------------------------------------------------------- packages
 step "System packages"
 apt-get update -qq
-PKGS=(python3 curl rsync avahi-daemon nftables network-manager iw)
+PKGS=(python3 curl rsync avahi-daemon nftables network-manager iw astrometry.net)
 [[ "$DO_DOCKER" == no ]] && PKGS+=(python3-venv python3-dev build-essential nginx nodejs npm)
 if [[ "$DO_KIOSK" == yes ]]; then
   if apt-cache show chromium-browser >/dev/null 2>&1; then PKGS+=(chromium-browser); else PKGS+=(chromium); fi
@@ -60,6 +60,14 @@ step "User and directories"
 id orbitscope >/dev/null 2>&1 || useradd --system --home-dir "$DATA" --shell /usr/sbin/nologin orbitscope
 install -d -o orbitscope -g orbitscope -m 750 "$DATA" "$DATA/cache" "$DATA/cache/spherex" "$DATA/cache/offline" "$DATA/db"
 install -d -m 750 -g orbitscope "$ETC"
+usermod -aG video orbitscope   # Ground Node: the backend may use the Pi camera
+
+step "Plate-solving index files (astrometry.net 4100 series, wide fields 0.1-30 deg+, ~60 MB)"
+IDX=/usr/share/astrometry
+install -d "$IDX"
+for n in 4108 4109 4110 4111 4112 4113 4114 4115 4116 4117 4118 4119; do
+  [[ -s "$IDX/index-$n.fits" ]] || curl -fsSL -o "$IDX/index-$n.fits" "http://data.astrometry.net/4100/index-$n.fits"     || warn "index-$n.fits could not be downloaded (internet?); plate solving of that scale will fail"
+done
 
 step "Settings ($ENV_FILE)"
 if [[ ! -f "$ENV_FILE" ]]; then

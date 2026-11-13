@@ -12,6 +12,7 @@ const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
 const PlanetXPage = lazy(() => import('./pages/PlanetXPage'));
 const CatalogPage = lazy(() => import('./pages/CatalogPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const GroundNodePage = lazy(() => import('./pages/GroundNodePage'));
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/comparison" element={<ComparisonPage />} />
             <Route path="/planetx" element={<PlanetXPage />} />
             <Route path="/catalog" element={<CatalogPage />} />
+            <Route path="/ground" element={<GroundNodePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

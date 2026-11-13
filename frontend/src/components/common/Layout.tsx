@@ -10,7 +10,8 @@ import {
   BarChart2,
   BookOpen,
   Users,
-  Globe
+  Globe,
+  RadioTower
 } from 'lucide-react';
 import { OrbitScopeLogo, SpherexSatelliteIllustration } from './Icons';
 import OfflineBanner from './OfflineBanner';
@@ -34,6 +35,7 @@ export default function Layout() {
     { to: '/comparison', icon: GitCompare, label: t('nav.comparison') },
     { to: '/planetx', icon: Orbit, label: t('nav.planetx') },
     { to: '/catalog', icon: BarChart2, label: t('nav.catalog') },
+    { to: '/ground', icon: RadioTower, label: t('nav.ground') },
     { to: '/about', icon: BookOpen, label: t('nav.about') },
   ];
 

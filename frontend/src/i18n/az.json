@@ -15,7 +15,8 @@
     "about": "Haqqında",
     "settings": "Parametrlər",
     "language": "Dil",
-    "collapse": "Paneli yığ"
+    "collapse": "Paneli yığ",
+    "ground": "Yer Stansiyası"
   },
   "dashboard": {
     "title": "Səma Tədqiqatçısı İdarə Paneli",
@@ -827,5 +828,57 @@
     "qrWifi": "1. Wi-Fi-a qoşulun",
     "qrSite": "2. OrbitScope-u açın",
     "hideQr": "QR kodları gizlət"
+  },
+  "ground": {
+    "title": "Yer Stansiyası",
+    "intro": "Bu Raspberry Pi kiçik müşahidə stansiyası kimi işləyir. Ona istənilən kamera qoşula bilər: bu prototipdə Pi kamerası, yüklənmiş şəkil ardıcıllığı, gələcəkdə isə eyni girişlə teleskop. Hər mənbə Pi-də eyni analizdən keçir: iz aşkarlama, plate solving və SPHEREx-də eyni səma istiqaməti.",
+    "inCamera": "Pi kamerası",
+    "inUpload": "Şəkil yükləmə",
+    "inIndi": "Teleskop (INDI, planlaşdırılır)",
+    "solver": "Plate solver",
+    "uploadTitle": "Şəkil ardıcıllığı yükləyin",
+    "uploadHint": "Ştativdən eyni sahənin bir neçə kadrı (5–30 san ekspozisiya). Vaxt və yer EXIF-dən oxunur. Mənbə kamera olduğu kimi göstərilir.",
+    "labelPh": "Sessiya adı (məs. dam, 13 noyabr)",
+    "uploadBtn": "Yüklə və analiz et",
+    "uploading": "Yüklənir…",
+    "pickFiles": "Əvvəlcə kadrları seçin.",
+    "cameraTitle": "Pi kamerası",
+    "cameraHint": "Stansiyanın kamerası ilə kadr ardıcıllığı çəkir və analiz edir.",
+    "nFrames": "Kadr",
+    "exposure": "Ekspozisiya (san)",
+    "captureBtn": "Çək və analiz et",
+    "capturing": "Çəkilir…",
+    "noCamera": "Bu cihazda kamera yoxdur",
+    "indiNote": "Teleskop (INDI protokolu: yüzlərlə montaj və kamera) eyni zəncirə qoşulacaq. Bu prototipdə qoşulmayıb.",
+    "busy": {
+      "upload": "Kadrlar yüklənir…",
+      "capture": "Pi kamerası ilə çəkilir…",
+      "analyze": "Stansiyada analiz gedir (izlər, plate solving)…"
+    },
+    "sessions": "Sessiyalar",
+    "noSessions": "Hələ sessiya yoxdur.",
+    "framesShort": "kadr",
+    "trailsShort": "iz",
+    "src": {
+      "upload": "Yüklənmiş şəkillər",
+      "pi_camera": "Pi kamerası (bu stansiya)"
+    },
+    "trails": "İzlər",
+    "dashed": "{{n}} qırıq xətt (ehtimal ki, təyyarə)",
+    "fov": "sahə eni {{w}}°",
+    "satId": "Peyk identifikasiyası",
+    "satPending": "Növbəti addım: CelesTrak orbitləri ilə müqayisə.",
+    "toSpherex": "SPHEREx-də eyni istiqamət",
+    "frame": "Kadr",
+    "noTz": "yerli vaxt, saat qurşağı yoxdur",
+    "noTime": "faylda vaxt yoxdur",
+    "framesWithTrails": "İzli kadrlar:",
+    "length": "Uzunluq",
+    "angle": "Bucaq",
+    "kind": "Növ",
+    "kindPlane": "təyyarə? (qırıq xətt)",
+    "kindUnknown": "tanınmamış iz",
+    "honesty": "İzlər yalnız bir kadrda görünən düz xətlərdir: peyk, təyyarə və ya meteor. Bunlar kəşf deyil. Nəyisə müəyyən etmək mümkün olmadıqda (vaxt yoxdur, solver yoxdur) səhifə bunu açıq yazır.",
+    "pickSession": "Kadr yükləyin, kamera ilə çəkin və ya sessiya seçin."
   }
 }

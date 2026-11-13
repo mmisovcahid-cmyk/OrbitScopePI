@@ -105,6 +105,31 @@ How it works:
 
 Nothing is invented: without a saved copy the API still returns HTTP 502 with an explanation.
 
+## Ground Node (`/ground`)
+
+The Pi works as a small, sensor-agnostic observing station. Every input goes through the same chain on the Pi:
+
+| Input | Status |
+|---|---|
+| Uploaded image sequence (JPEG/PNG/TIFF/FITS, e.g. phone frames from a tripod) | Working. Time, place and camera model come from EXIF and are shown as they are. |
+| Pi camera (`rpicam-still`, native install only) | Working when a camera is attached; "Capture and analyse" on the page. |
+| Telescope via INDI | Planned; shown as such. |
+
+The analysis has four stages:
+
+1. **Trail detection.** For each frame, a dilated median of its neighbours is subtracted (stars that drift slightly cancel out). Long, thin residuals are reported as trails; collinear dashes are flagged as probable aircraft.
+2. **Plate solving.** `solve-field` from astrometry.net runs locally. `install.sh` installs it with the 4108–4119 index files (about 60 MB).
+3. **SPHEREx link.** The solved centre opens the same direction in SPHEREx. The scale differs: the phone frame is tens of degrees, the SPHEREx cutout at most 0.5°.
+4. **Satellite identification.** Not built yet. The page states what is needed: the UTC time and place of every frame.
+
+Sessions are stored in `/var/lib/orbitscope/cache/ground/`.
+
+**How to shoot a phone sequence:**
+
+- Use a tripod and Pro/Manual mode (Android: Open Camera; iPhone: NightCap, not Night Mode).
+- Settings: 5–15 s exposure, ISO 800–1600, manual focus at infinity, GPS and automatic time on.
+- Take 40–80 frames over 15–20 minutes without touching the phone.
+
 ## Kiosk
 
 `orbitscope-kiosk` waits for the backend, then runs Chromium in kiosk mode on `http://localhost/?kiosk=1` and restarts it if it closes. In kiosk mode the UI:

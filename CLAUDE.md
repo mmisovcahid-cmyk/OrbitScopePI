@@ -93,6 +93,17 @@ Real-data paths must never fall back to invented values: return a 502 with an ex
   - Fonts are bundled via `@fontsource/*`; no Google Fonts.
 - **Settings:** `MAX_CONCURRENT_JOBS` and `SPHEREX_DOWNLOAD_CONCURRENCY` are env settings (Pi profile: 2 / 6). SQLite runs in WAL mode.
 
+## Ground Node (Raspberry Pi as an observing station)
+
+- **Code:** `app/services/ground_node.py` + `app/api/routes/ground.py` (`/api/v1/ground/...`), frontend `pages/GroundNodePage.tsx` (`/ground`). Tests are in `tests/test_ground_node.py`.
+- **Inputs:** uploaded image sequences (EXIF time/GPS/camera are kept as provenance; never labelled as Pi camera frames) and the Pi camera via `rpicam-still`. INDI is planned.
+- **Analysis:**
+  - `detect_trails`: neighbour median, grey-dilated and subtracted, then elongated components.
+  - `plate_solve`: astrometry.net `solve-field` when installed, else `status: unavailable` with the reason.
+  - Satellite ID (CelesTrak TLE + skyfield) is not built yet.
+- **Storage:** sessions are JSON + frames under `<cache>/../ground/`.
+- **Uploads:** they need `python-multipart`, and nginx has `client_max_body_size 500m`.
+
 ## Background jobs and progress
 
 - `app/services/jobs.py` (`JobManager`) runs long work as in-process asyncio tasks, at most `MAX_CONCURRENT_JOBS` at a time (default 3). Identical requests (same kind, locale and params) share one job, and finished jobs are kept for 30 minutes.
